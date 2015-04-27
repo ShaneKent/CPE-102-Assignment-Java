@@ -4,7 +4,7 @@ public class Obstacle extends GridItem{
       super(name, imgs, position);
    }
    
-   public String entity_string(){
+   public String entityString(){
       Point p = getPosition();
       return "obstacle " + getName() + " " + p.getX() + " " + p.getY();
    }

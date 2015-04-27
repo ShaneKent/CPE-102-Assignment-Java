@@ -32,7 +32,7 @@ public class Entity{
       this.current_img = (this.current_img + 1) % this.imgs.length;
    }
 
-   public String entity_string(){
+   public String entityString(){
       return "unknown";
    }
 
