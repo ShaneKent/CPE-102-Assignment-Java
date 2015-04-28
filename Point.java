@@ -26,4 +26,14 @@ public class Point{
               (this.getY() == pt.getY() && Math.abs(this.getX() - pt.getX()) == 1));
 
    }
+
+   public static int sign(int x){
+      if (x < 0){
+         return -1;
+      }else if (x > 0){
+         return 1;
+      }else{
+         return 0;
+      }
+   }
 }

@@ -7,7 +7,7 @@
 
 public class Entity{
    private String name;   
-   private Object [] imgs;
+   private Object [] imgs; //This list of imgs as well as any other methods designed to operate on list list are arbitrary until we correctly implement Images.
    private int current_img;
 
    public Entity(String name, Object[] imgs){
