@@ -88,8 +88,8 @@ public class WorldModel{
 
    public void removeEntityAt(Point pt){
       if (withinBounds(pt) && this.occupancy.getCell(pt) != null){
-         GridItem e = this.occupancy.getCell(pt);
-         e.setPosition(new Point(-1, -1));
+         Entity e = this.occupancy.getCell(pt);
+         ((GridItem) e).setPosition(new Point(-1, -1));
          this.entities.remove(e);
          this.occupancy.setCell(pt, null);
       }
@@ -98,19 +98,21 @@ public class WorldModel{
    // Update this for new Image type.
    public Object getBackgroundImage(Point pt){
       if (withinBounds(pt)){
-         return this.background.getCell(pt).getImage() //add a .get_image() function here.
+         return this.background.getCell(pt).getImage();
       }
+      return null;
    }
 
    public Background getBackground(Point pt){
       if (withinBounds(pt)){
-         return this.background.getCell(pt);
+         return (Background) this.background.getCell(pt);
       }
+      return null;
    }
 
    public void setBackground(Point pt, Background bgnd){
       if (withinBounds(pt)){
-         self.background.setCell(pt, bgnd);
+         this.background.setCell(pt, bgnd);
       }
    }
 
@@ -118,13 +120,14 @@ public class WorldModel{
       if (withinBounds(pt)){
          return this.occupancy.getCell(pt);
       }
+      return null;
    }
 
    public List<Entity> getEntities(){
       return this.entities;
    }
 
-   public Point findOpenAround(Point pt, double distance){
+   public Point findOpenAround(Point pt, int distance){
       for (int dy = (-1 * distance); dy <= distance; dy++){
          for (int dx = (-1 * distance); dx <= distance; dx++){
             Point new_p = new Point(pt.getX() + dx, pt.getY() + dy);
