@@ -32,10 +32,21 @@ public class Miner extends Occupant{
    public int getAnimationRate(){
       return this.animation_rate;
    }
-   /*
-   This function will be added when the world model class is done.
-   public Point next_position(...){
+      
+   public Point nextPosition(WorldModel world, Point dest_pt){
+      Point e_pt = this.getPosition();
+      int horiz = Point.sign(dest_pt.getX() - e_pt.getX());
+      Point new_pt = new Point(e_pt.getX() + horiz, e_pt.getY());
 
+      if (horiz == 0 || world.isOccupied(new_pt)){
+         int vert = Point.sign(dest_pt.getY() - e_pt.getY());
+         new_pt = new Point(e_pt.getX(), e_pt.getY() + vert);
+
+         if (vert == 0 || world.isOccupied(new_pt)){
+            new_pt = new Point(e_pt.getX(), e_pt.getY());
+         }
+      }
+
+      return new_pt;
    }
-   */
 }
