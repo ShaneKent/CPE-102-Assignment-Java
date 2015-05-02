@@ -9,8 +9,9 @@ public class TestCases{
 
    @Test
    public void testEntity(){
-      Entity e = new Entity("entity", ["img1", "img2"]); 
-      assertTrue("entity".equals(e.getName());
+      String[] imgs = {"img1", "img2"};
+      Entity e = new Entity("entity", imgs); 
+      assertTrue("entity".equals(e.getName()));
       assertTrue("img1".equals(e.getImage()));
 
       e.nextImage();
@@ -20,8 +21,9 @@ public class TestCases{
 
    @Test
    public void testBackground(){
-      Background b = new Background("background", ["img1", "img2"]);
-      assertTrue("background".equals(b.getName());
+	  String[] imgs = {"img1", "img2"};
+      Background b = new Background("background", imgs);
+      assertTrue("background".equals(b.getName()));
       assertTrue("img1".equals(b.getImage()));
 
       b.nextImage();
@@ -41,9 +43,9 @@ public class TestCases{
       assertTrue(p.adjacent(neighbor));
       assertTrue(!p.adjacent(notNeighbor));
 
-      assertTrue(sign(-1) == -1);
-      assertTrue(sign(0) == 0);
-      assertTrue(sign(1) == 1);  
+      assertTrue(p.sign(-1) == -1);
+      assertTrue(p.sign(0) == 0);
+      assertTrue(p.sign(1) == 1);  
    }
 
 
