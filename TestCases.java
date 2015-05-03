@@ -86,6 +86,8 @@ public class TestCases{
       Obstacle o = new Obstacle("test", imgs, p);
       assertTrue("obstacle test 0 0".equals(o.entityString()));
 
+
+      Point newP = new Point(1,0);
       assertTrue(o.getPosition() == p);
       o.setPosition(newP);
       assertTrue(o.getPosition() == newP);
@@ -102,6 +104,7 @@ public class TestCases{
       Point p = new Point(0,0);
       Point newP = new Point(1,0);
       Occupant o = new Occupant("Occupant", imgs, p);
+
 
       assertTrue(o.getPosition() == p);
       o.setPosition(newP);
@@ -124,6 +127,9 @@ public class TestCases{
      assertTrue(o2.getRate() == 1000);
      assertTrue("ore Ore2 0 0 1000".equals(o2.entityString()));
 
+
+
+     Point newP = new Point(1,0);
      assertTrue(o1.getPosition() == p);
      o1.setPosition(newP);
      assertTrue(o1.getPosition() == newP);
@@ -146,6 +152,8 @@ public class TestCases{
      assertTrue(v2.getResourceDistance() == 4);
      assertTrue("vein test2 0 0 1000 4".equals(v2.entityString()));
 
+
+     Point newP = new Point(1,0);
      assertTrue(v1.getPosition() == p);
      v1.setPosition(newP);
      assertTrue(v1.getPosition() == newP);
@@ -163,6 +171,8 @@ public class TestCases{
      Quake q = new Quake("test1", imgs, p, 1000);
      assertTrue(q.getAnimationRate() == 1000);
 
+
+     Point newP = new Point(1,0);
      assertTrue(q.getPosition() == p);
      q.setPosition(newP);
      assertTrue(q.getPosition() == newP);
@@ -182,6 +192,8 @@ public class TestCases{
      assertTrue(o.getRate() == 1000);
      assertTrue(o.getAnimationRate() == 5000);
 
+
+     Point newP = new Point(1,0);
      assertTrue(o.getPosition() == p);
      o.setPosition(newP);
      assertTrue(o.getPosition() == newP);
@@ -206,6 +218,8 @@ public class TestCases{
      m.setResourceCount(2);
      assertTrue(m.getResourceCount() == 2);
 
+
+     Point newP = new Point(1,0);
      assertTrue(m.getPosition() == p);
      m.setPosition(newP);
      assertTrue(m.getPosition() == newP);
@@ -224,6 +238,8 @@ public class TestCases{
      Miner m = new MinerNotFull("test", imgs, p, 1000, 10, 5000);
      assertTrue("miner test 0 0 10 1000 5000".equals(m.entityString()));
 
+
+     Point newP = new Point(1,0);
      assertTrue(m.getPosition() == p);
      m.setPosition(newP);
      assertTrue(m.getPosition() == newP);
@@ -241,6 +257,8 @@ public class TestCases{
      Point p = new Point(0,0);
      Miner m = new MinerFull("test", imgs, p, 1000, 10, 5000);
 
+
+     Point newP = new Point(1,0);
      assertTrue(m.getPosition() == p);
      m.setPosition(newP);
      assertTrue(m.getPosition() == newP);
@@ -252,20 +270,6 @@ public class TestCases{
      assertTrue("unknown".equals(m.entityString()));     
  }
 
- @Test
-     public void testBlacksmith(){
-     String[] imgs = {"img1", "img2"};
-     Point p = new Point(0,0);
-     Blacksmith b = new Blacksmith("test", imgs, p, 1000, 10, 5000);
-
-     assertTrue(b.getPosition() == p);
-     b.setPosition(newP);
-     assertTrue(b.getPosition() == newP);
-      
-     assertTrue("test".equals(b.getName()));
-     assertTrue("img1".equals(b.getImage()));
-     b.nextImage(); 
-     assertTrue("img2".equals(b.getImage()));
-     assertTrue("unknown".equals(b.entityString()));     
- }
+    
+ 
 }
