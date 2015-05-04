@@ -339,6 +339,15 @@ public class TestCases{
      ent.add(g1);
      assertTrue(ent.equals(w.getEntities()));
      
+     
+     w.removeEntityAt(p);
+     assertTrue(!w.isOccupied(p));
+     GridItem g2 = new GridItem("test2", imgs, p);
+     w.addEntity(g2);
+     assertTrue(w.getTileOccupant(p) == g2);
+     assertTrue(w.isOccupied(p));
+   
+     
 
  }
  
