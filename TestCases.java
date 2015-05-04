@@ -307,18 +307,22 @@ public class TestCases{
  }
 
  @Test
-     public void testWorldView(){
+     public void testWorldModel(){
      String[] imgs = {"img1", "img2"};
+     Point p = new Point(0,0);
      Entity b = new Background("background", imgs);
+     GridItem g1 = new GridItem("test1", imgs, p);
      WorldModel w = new WorldModel(2, 2, b);
 
 
      Point p1 = new Point(4,3);
-     Point p2 = new Point(0,0);
      assertTrue(!w.withinBounds(p1));
-     assertTrue(w.withinBounds(p2));
-     assertTrue(w.isOccupied());
-     assertTrue(!w.isOccupied());
+     assertTrue(w.withinBounds(p));
+     assertTrue(!w.isOccupied(p));
+     assertTrue(!w.isOccupied(p1));
+     w.addEntity(g1);
+     assertTrue(w.getTileOccupant(p) == g1);
+     assertTrue(w.isOccupied(p));
 
  }
  
