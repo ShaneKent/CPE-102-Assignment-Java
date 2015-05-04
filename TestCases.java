@@ -314,7 +314,7 @@ public class TestCases{
      Point p = new Point(0,0);
      Entity b = new Background("background", imgs);
      GridItem g1 = new GridItem("test1", imgs, p);
-     WorldModel w = new WorldModel(2, 2, b);
+     WorldModel w = new WorldModel(4, 4, b);
 
      Point p1 = new Point(4,3);
      Background b2 = new Background("background2", imgs);     
@@ -347,7 +347,15 @@ public class TestCases{
      assertTrue(w.getTileOccupant(p) == g2);
      assertTrue(w.isOccupied(p));
    
-     
+     Point p3 = new Point(3, 2);
+     Ore ore1 = new Ore("ore1", imgs, new Point(2, 3));
+     Ore ore2 = new Ore("ore2", imgs, new Point(1, 2));
+     Miner miner1 = new Miner("miner1", imgs, new Point(0, 0), 0, 0, 0);
+     Miner miner2 = new Miner("miner2", imgs, new Point(3, 3), 0, 0, 0);
+     w.addEntity(ore1); w.addEntity(ore2); w.addEntity(miner1); w.addEntity(miner2);
+     assertTrue(w.findNearest(p3, Ore.class) == ore1);
+     assertTrue(w.findNearest(p3, Miner.class) == miner2);
+     assertTrue(w.findNearest(p3, OreBlob.class) == null);     
 
  }
  
