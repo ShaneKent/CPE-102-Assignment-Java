@@ -225,12 +225,36 @@ public class TestCases{
      assertTrue(m.getPosition() == p);
      m.setPosition(newP);
      assertTrue(m.getPosition() == newP);
-      
+     m.setPosition(p);
+
+ 
      assertTrue("test".equals(m.getName()));
      assertTrue("img1".equals(m.getImage()));
      m.nextImage();
      assertTrue("img2".equals(m.getImage()));
      assertTrue("unknown".equals(m.entityString()));    
+
+     Point pTest = new Point(0,1);
+     Point pTest2 = new Point(1,1);
+     GridItem g1 = new GridItem("test1", imgs, p);
+     GridItem g2 = new GridItem("test2", imgs, pTest);
+
+     Entity b = new Background("background", imgs);
+     WorldModel w1 = new WorldModel(4, 4, b);
+     Point mPoint = m.nextPosition(w1, p);
+     assertTrue(mPoint.getX()==0 && mPoint.getY()==0);
+     Point mPoint2 = m.nextPosition(w1, pTest);
+     assertTrue(mPoint2.getX()==0 && mPoint2.getY()==1);
+     Point mPoint3 = m.nextPosition(w1, pTest2);
+     assertTrue(mPoint3.getX()==1 && mPoint3.getY()==0);
+     w1.addEntity(g1);
+     w1.addEntity(g2);
+     Point mPoint4 = m.nextPosition(w1, p);
+     assertTrue(mPoint4.getX()==0 && mPoint4.getY()==0);
+     assertTrue(m.getPosition()==p);
+     Point mPoint5 = m.nextPosition(w1, pTest);
+     assertTrue(mPoint5.getX()==0 && mPoint5.getY()==0);
+
  }
 
  @Test
