@@ -24,7 +24,7 @@ public class WorldModel{
       return (this.withinBounds(p) && this.occupancy.getCell(p) != null);
    }
    
-   private int nearestEntity(List<Double> distance){
+   public int nearestEntity(List<Double> distance){
       int mindex = 0;
       
       for (int i = 0; i < distance.size(); i++){

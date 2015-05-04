@@ -357,6 +357,9 @@ public class TestCases{
      assertTrue(w.findNearest(p3, Miner.class) == miner2);
      assertTrue(w.findNearest(p3, OreBlob.class) == null);     
 
+     List<Double> doubles = new ArrayList<Double>();
+     doubles.add(15.87); doubles.add(23.4); doubles.add(-1.3); doubles.add(0.53); doubles.add(3.51); doubles.add(-41.4); doubles.add(2.4); doubles.add(10.5);
+     assertTrue(w.nearestEntity(doubles) == 5);
  }
- 
+
 }
