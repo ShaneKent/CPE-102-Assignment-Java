@@ -270,6 +270,40 @@ public class TestCases{
      assertTrue("unknown".equals(m.entityString()));     
  }
 
-    
+
+ @Test
+     public void testBlacksmith(){
+     String[] imgs = {"img1", "img2"};
+     Point p = new Point(0,0);
+     Blacksmith b1 = new Blacksmith("test", imgs, p, 10, 1000);
+     Blacksmith b2 = new Blacksmith("test", imgs, p, 10, 1000, 4);
+
+     assertTrue(b1.getRate()==1000);
+     assertTrue(b1.getResourceCount()==0);
+     b1.setResourceCount(2);
+     assertTrue(b1.getResourceCount()==2);
+     assertTrue(b1.getResourceLimit()==10);
+     assertTrue(b1.getResourceDistance()==1);
+     assertTrue("blacksmith test 0 0 10 1000 1".equals(b1.entityString()));
+
+     assertTrue(b2.getRate()==1000);
+     assertTrue(b2.getResourceCount()==0);
+     b2.setResourceCount(2);
+     assertTrue(b2.getResourceCount()==2);
+     assertTrue(b2.getResourceLimit()==10);
+     assertTrue(b2.getResourceDistance()==4);
+     assertTrue("blacksmith test 0 0 10 1000 4".equals(b2.entityString()));
+     
+
+     Point newP = new Point(1,0);
+     assertTrue(b1.getPosition() == p);
+     b1.setPosition(newP);
+     assertTrue(b1.getPosition() == newP);
+
+     assertTrue("test".equals(b1.getName()));
+     assertTrue("img1".equals(b1.getImage()));
+     b1.nextImage();
+     assertTrue("img2".equals(b1.getImage()));
+ }
  
 }
