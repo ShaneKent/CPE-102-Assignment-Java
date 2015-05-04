@@ -314,8 +314,13 @@ public class TestCases{
      GridItem g1 = new GridItem("test1", imgs, p);
      WorldModel w = new WorldModel(2, 2, b);
 
-
      Point p1 = new Point(4,3);
+           
+     assertTrue(w.getBackground(p1) == null);
+     assertTrue(w.getBackgroundImage(p1) == null);
+     assertTrue(w.getBackground(p) == b);
+     assertTrue(w.getBackgroundImage(p) == b.getImage());
+
      assertTrue(!w.withinBounds(p1));
      assertTrue(w.withinBounds(p));
      assertTrue(!w.isOccupied(p));
