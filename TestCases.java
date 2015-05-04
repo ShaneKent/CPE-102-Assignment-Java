@@ -360,6 +360,9 @@ public class TestCases{
      List<Double> doubles = new ArrayList<Double>();
      doubles.add(15.87); doubles.add(23.4); doubles.add(-1.3); doubles.add(0.53); doubles.add(3.51); doubles.add(-41.4); doubles.add(2.4); doubles.add(10.5);
      assertTrue(w.nearestEntity(doubles) == 5);
- }
-
+           
+     //Point open_pt = new Point(2, 1);
+     //System.out.println(p.equals(w.findOpenAround(p3, 1)));
+     //assertTrue(p.equals(w.findOpenAround(p3, 1)));
+  }
 }
