@@ -1,6 +1,8 @@
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.Test;
 import java.lang.Math;
 
@@ -316,7 +318,8 @@ public class TestCases{
 
      Point p1 = new Point(4,3);
      Background b2 = new Background("background2", imgs);     
-      
+     Point p2 = new Point(0,1);     
+ 
      assertTrue(w.getBackground(p1) == null);
      assertTrue(w.getBackgroundImage(p1) == null);
      assertTrue(w.getBackground(p) == b);
@@ -328,9 +331,14 @@ public class TestCases{
      assertTrue(w.withinBounds(p));
      assertTrue(!w.isOccupied(p));
      assertTrue(!w.isOccupied(p1));
+     assertTrue(w.getTileOccupant(p) == null);
      w.addEntity(g1);
      assertTrue(w.getTileOccupant(p) == g1);
      assertTrue(w.isOccupied(p));
+     List<Entity> ent = new ArrayList<Entity>();
+     ent.add(g1);
+     assertTrue(ent.equals(w.getEntities()));
+     
 
  }
  
