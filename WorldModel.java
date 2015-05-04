@@ -75,7 +75,7 @@ public class WorldModel{
          this.occupancy.setCell(old_p, null);
          tiles[0] = old_p;
          this.occupancy.setCell(pt, e);
-         tiles[1] = old_p;
+         tiles[1] = pt;
          e.setPosition(pt);
       }
 

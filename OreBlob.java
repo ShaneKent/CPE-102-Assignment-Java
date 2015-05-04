@@ -41,7 +41,7 @@ public class OreBlob extends Occupant{
    }
 
    public Point blobNextPosition(WorldModel world, Point dest_pt){
-      Point e_pt = getPosition();
+      Point e_pt = this.getPosition();
       int horiz = Point.sign(dest_pt.getX() - e_pt.getX());
       Point new_pt = new Point(e_pt.getX() + horiz, e_pt.getY());
 

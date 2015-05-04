@@ -205,7 +205,34 @@ public class TestCases{
      o.nextImage();
      assertTrue("img2".equals(o.getImage()));
      assertTrue("unknown".equals(o.entityString()));
- }
+ 
+     Entity b = new Background("background", imgs);
+     WorldModel w = new WorldModel(5, 5, b);
+     Vein v = null;
+     Vein v0 = new Vein("vein0", imgs, new Point(1, 1), 0);
+     Vein v1 = new Vein("vein1", imgs, new Point(4, 3), 0);
+     Point [] returned = new Point[1];
+   
+     returned[0] = o.getPosition();
+     assertTrue(o.blobToVein(w, null)[0].equals(returned[0])); 
+     returned[0] = v0.getPosition();
+     assertTrue(o.blobToVein(w, v0)[0].equals(returned[0]));
+     
+     returned = new Point[2];
+     returned[0] = o.getPosition();
+     returned[1] = new Point(2, 0);
+
+     Point [] points = new Point[2];
+     points = o.blobToVein(w, v1);
+     assertTrue(points[0].equals(returned[0]));
+     assertTrue(points[1].equals(returned[1]));
+
+     o = new OreBlob("test", imgs, new Point(1, 0), 1000, 5000);
+     w = new WorldModel(5, 5, b);
+     assertTrue(o.blobNextPosition(w, new Point(3, 0)).equals(new Point(2, 0)));
+     assertTrue(o.blobNextPosition(w, new Point(1, 2)).equals(new Point(1, 1)));
+     assertTrue(o.blobNextPosition(w, new Point(3, 3)).equals(new Point(2, 0)));          
+     }
 
 
  @Test
@@ -361,8 +388,8 @@ public class TestCases{
      doubles.add(15.87); doubles.add(23.4); doubles.add(-1.3); doubles.add(0.53); doubles.add(3.51); doubles.add(-41.4); doubles.add(2.4); doubles.add(10.5);
      assertTrue(w.nearestEntity(doubles) == 5);
            
-     //Point open_pt = new Point(2, 1);
-     //System.out.println(p.equals(w.findOpenAround(p3, 1)));
-     //assertTrue(p.equals(w.findOpenAround(p3, 1)));
+     Point open_pt = new Point(2, 1);
+     assertTrue(open_pt.equals(w.findOpenAround(p3, 1)));
+
   }
 }
