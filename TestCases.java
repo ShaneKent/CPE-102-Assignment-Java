@@ -346,6 +346,26 @@ public class TestCases{
      w.addEntity(g2);
      assertTrue(w.getTileOccupant(p) == g2);
      assertTrue(w.isOccupied(p));
+     w.removeEntity(g2);
+     assertTrue(!w.isOccupied(p));
+     
+
+     GridItem g3 = new GridItem("test3", imgs, p);
+     w.addEntity(g3);
+     Point[] arr1 = new Point[2];
+     arr1[0] = null;
+     arr1[1] = null;
+     Point[] sameTiles = w.moveEntity(g3, p1);
+     assertTrue(w.isOccupied(p)); 
+     assertTrue(arr1[0]==sameTiles[0] && arr1[1]==sameTiles[1]);
+     Point[] newTiles = w.moveEntity(g3, p2);
+     assertTrue(!w.isOccupied(p));
+     Point[] arr2 = new Point[2];
+     arr2[0] = p;
+     arr2[1] = p2;
+     assertTrue(arr2[0]==newTiles[0] && arr2[1]==newTiles[1]);
+
+     
    
      Point p3 = new Point(3, 2);
      Ore ore1 = new Ore("ore1", imgs, new Point(2, 3));
