@@ -305,5 +305,21 @@ public class TestCases{
      b1.nextImage();
      assertTrue("img2".equals(b1.getImage()));
  }
+
+ @Test
+     public void testWorldView(){
+     String[] imgs = {"img1", "img2"};
+     Entity b = new Background("background", imgs);
+     WorldModel w = new WorldModel(2, 2, b);
+
+
+     Point p1 = new Point(4,3);
+     Point p2 = new Point(0,0);
+     assertTrue(!w.withinBounds(p1));
+     assertTrue(w.withinBounds(p2));
+     assertTrue(w.isOccupied());
+     assertTrue(!w.isOccupied());
+
+ }
  
 }
