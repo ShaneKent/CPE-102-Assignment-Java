@@ -315,11 +315,14 @@ public class TestCases{
      WorldModel w = new WorldModel(2, 2, b);
 
      Point p1 = new Point(4,3);
-           
+     Background b2 = new Background("background2", imgs);     
+      
      assertTrue(w.getBackground(p1) == null);
      assertTrue(w.getBackgroundImage(p1) == null);
      assertTrue(w.getBackground(p) == b);
      assertTrue(w.getBackgroundImage(p) == b.getImage());
+     w.setBackground(p, b2);
+     assertTrue(w.getBackground(p) == b2);
 
      assertTrue(!w.withinBounds(p1));
      assertTrue(w.withinBounds(p));
