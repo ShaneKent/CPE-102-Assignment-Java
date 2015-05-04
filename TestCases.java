@@ -231,8 +231,8 @@ public class TestCases{
      w = new WorldModel(5, 5, b);
      assertTrue(o.blobNextPosition(w, new Point(3, 0)).equals(new Point(2, 0)));
      assertTrue(o.blobNextPosition(w, new Point(1, 2)).equals(new Point(1, 1)));
-     assertTrue(o.blobNextPosition(w, new Point(3, 3)).equals(new Point(2, 0)));          
-     }
+     assertTrue(o.blobNextPosition(w, new Point(3, 3)).equals(new Point(2, 0)));      
+ }
 
 
  @Test
@@ -252,19 +252,43 @@ public class TestCases{
      assertTrue(m.getPosition() == p);
      m.setPosition(newP);
      assertTrue(m.getPosition() == newP);
-      
+     m.setPosition(p);
+
+ 
      assertTrue("test".equals(m.getName()));
      assertTrue("img1".equals(m.getImage()));
      m.nextImage();
      assertTrue("img2".equals(m.getImage()));
      assertTrue("unknown".equals(m.entityString()));    
+
+     Point pTest = new Point(0,1);
+     Point pTest2 = new Point(1,1);
+     GridItem g1 = new GridItem("test1", imgs, p);
+     GridItem g2 = new GridItem("test2", imgs, pTest);
+
+     Entity b = new Background("background", imgs);
+     WorldModel w1 = new WorldModel(4, 4, b);
+     Point mPoint = m.nextPosition(w1, p);
+     assertTrue(mPoint.getX()==0 && mPoint.getY()==0);
+     Point mPoint2 = m.nextPosition(w1, pTest);
+     assertTrue(mPoint2.getX()==0 && mPoint2.getY()==1);
+     Point mPoint3 = m.nextPosition(w1, pTest2);
+     assertTrue(mPoint3.getX()==1 && mPoint3.getY()==0);
+     w1.addEntity(g1);
+     w1.addEntity(g2);
+     Point mPoint4 = m.nextPosition(w1, p);
+     assertTrue(mPoint4.getX()==0 && mPoint4.getY()==0);
+     assertTrue(m.getPosition()==p);
+     Point mPoint5 = m.nextPosition(w1, pTest);
+     assertTrue(mPoint5.getX()==0 && mPoint5.getY()==0);
+
  }
 
  @Test
      public void testMinerNotFull(){
      String[] imgs = {"img1", "img2"};
      Point p = new Point(0,0);
-     Miner m = new MinerNotFull("test", imgs, p, 1000, 10, 5000);
+     MinerNotFull m = new MinerNotFull("test", imgs, p, 1000, 10, 5000);
      assertTrue("miner test 0 0 10 1000 5000".equals(m.entityString()));
 
 
@@ -277,6 +301,33 @@ public class TestCases{
      assertTrue("img1".equals(m.getImage()));
      m.nextImage();
      assertTrue("img2".equals(m.getImage()));
+     
+     Entity b = new Background("background", imgs);
+     WorldModel w = new WorldModel(5, 5, b);
+     Ore o1 = new Ore("ore1", imgs, new Point(4, 4));
+     Ore o2 = new Ore("ore2", imgs, new Point(1, 1));
+     Ore o3 = null;
+
+     Point [] returned = new Point[1];
+     returned[0] = m.getPosition();
+     assertTrue(m.minerToOre(w, o3)[0].equals( returned[0] ));
+     returned[0] = o2.getPosition();
+     assertTrue(m.minerToOre(w, o2)[0].equals( returned[0] ));
+
+     returned = new Point[2];
+     returned[0] = m.getPosition();
+     returned[1] = m.nextPosition(w, o1.getPosition());
+     Point [] points = m.minerToOre(w, o1);
+     assertTrue(points[0].equals( returned[0] ));
+     assertTrue(points[1].equals( returned[1] ));
+     
+     MinerNotFull old_m = new MinerNotFull("not_full", imgs, new Point(3, 3), 10, 15, 20);
+     old_m.setResourceCount(15);
+     MinerFull new_m = (MinerFull)old_m.tryTransformMiner(w);
+     assertTrue(new_m.getName().equals("not_full") && new_m.getImages() == imgs && new_m.getPosition().equals(new Point(3,3)) && new_m.getResourceLimit() == 15 && new_m.getAnimationRate() == 20);
+     
+     MinerNotFull old_m2 = new MinerNotFull("not_full", imgs, new Point(3, 3), 10, 15, 20);
+     assertTrue(old_m2 == old_m2.tryTransformMiner(w));
 
  }
 
@@ -284,7 +335,7 @@ public class TestCases{
      public void testMinerFull(){
      String[] imgs = {"img1", "img2"};
      Point p = new Point(0,0);
-     Miner m = new MinerFull("test", imgs, p, 1000, 10, 5000);
+     MinerFull m = new MinerFull("test", imgs, p, 1000, 10, 5000);
 
 
      Point newP = new Point(1,0);
@@ -297,6 +348,28 @@ public class TestCases{
      m.nextImage(); 
      assertTrue("img2".equals(m.getImage()));
      assertTrue("unknown".equals(m.entityString()));     
+
+     Entity b = new Background("background", imgs);
+     WorldModel w = new WorldModel(5, 5, b);
+     Blacksmith bs1 = new Blacksmith("smith1", imgs, new Point(4, 4), 0, 0);
+     Blacksmith bs2 = new Blacksmith("smith2", imgs, new Point(1, 1), 0, 0);
+     Blacksmith bs3 = null;
+
+     Point [] returned = new Point[1];
+     returned[0] = m.getPosition();
+     assertTrue(m.minerToSmith(w, bs3)[0].equals( returned[0] ));
+     assertTrue(m.minerToSmith(w, bs2).getClass() == Point[].class);
+     
+     returned = new Point[2];
+     returned[1] = m.nextPosition(w, bs1.getPosition());
+     returned[0] = m.getPosition();
+     Point [] points = m.minerToSmith(w, bs1);
+     assertTrue(points[0].equals( returned[0] ));
+     assertTrue(points[1].equals( returned[1] ));
+
+     MinerFull old_m = new MinerFull("full", imgs, new Point(3, 3), 10, 15, 20);
+     MinerNotFull new_m = (MinerNotFull)old_m.tryTransformMiner(w);
+     assertTrue(new_m.getName().equals("full") && new_m.getImages() == imgs && new_m.getPosition().equals(new Point(3,3)) && new_m.getResourceLimit() == 15 && new_m.getAnimationRate() == 20);     
  }
 
 
@@ -373,6 +446,26 @@ public class TestCases{
      w.addEntity(g2);
      assertTrue(w.getTileOccupant(p) == g2);
      assertTrue(w.isOccupied(p));
+     w.removeEntity(g2);
+     assertTrue(!w.isOccupied(p));
+     
+
+     GridItem g3 = new GridItem("test3", imgs, p);
+     w.addEntity(g3);
+     Point[] arr1 = new Point[2];
+     arr1[0] = null;
+     arr1[1] = null;
+     Point[] sameTiles = w.moveEntity(g3, p1);
+     assertTrue(w.isOccupied(p)); 
+     assertTrue(arr1[0]==sameTiles[0] && arr1[1]==sameTiles[1]);
+     Point[] newTiles = w.moveEntity(g3, p2);
+     assertTrue(!w.isOccupied(p));
+     Point[] arr2 = new Point[2];
+     arr2[0] = p;
+     arr2[1] = p2;
+     assertTrue(arr2[0]==newTiles[0] && arr2[1]==newTiles[1]);
+
+     
    
      Point p3 = new Point(3, 2);
      Ore ore1 = new Ore("ore1", imgs, new Point(2, 3));
