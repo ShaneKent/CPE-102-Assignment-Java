@@ -1,8 +1,8 @@
 public class MinerFull extends Miner{
    
    public MinerFull(String name, Object[] imgs, Point position, int rate, int resource_limit, int animation_rate){
-      super(name, imgs, position, rate, resource_limit, animation_rate);
-      this.setResourceCount(resource_limit);
+       super(name, imgs, position, rate, resource_limit, animation_rate, resource_limit);
+
    }
    
    public Point[] minerToSmith(WorldModel world, Blacksmith smith){

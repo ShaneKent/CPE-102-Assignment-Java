@@ -1,7 +1,7 @@
 public class MinerNotFull extends Miner{
    
    public MinerNotFull(String name, Object[] imgs, Point position, int rate, int resource_limit, int animation_rate){
-      super(name, imgs, position, rate, resource_limit, animation_rate);
+       super(name, imgs, position, rate, resource_limit, animation_rate, 0);
    }
 
    public String entityString(){

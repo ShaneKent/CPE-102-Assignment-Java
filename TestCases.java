@@ -239,7 +239,7 @@ public class TestCases{
      public void testMiner(){
      String[] imgs = {"img1", "img2"};
      Point p = new Point(0,0);
-     Miner m = new Miner("test", imgs, p, 1000, 10, 5000);
+     Miner m = new Miner("test", imgs, p, 1000, 10, 5000, 0);
      assertTrue(m.getRate() == 1000);
      assertTrue(m.getResourceCount() == 0);
      assertTrue(m.getResourceLimit() == 10);
@@ -470,8 +470,8 @@ public class TestCases{
      Point p3 = new Point(3, 2);
      Ore ore1 = new Ore("ore1", imgs, new Point(2, 3));
      Ore ore2 = new Ore("ore2", imgs, new Point(1, 2));
-     Miner miner1 = new Miner("miner1", imgs, new Point(0, 0), 0, 0, 0);
-     Miner miner2 = new Miner("miner2", imgs, new Point(3, 3), 0, 0, 0);
+     Miner miner1 = new Miner("miner1", imgs, new Point(0, 0), 0, 0, 0, 0);
+     Miner miner2 = new Miner("miner2", imgs, new Point(3, 3), 0, 0, 0, 0);
      w.addEntity(ore1); w.addEntity(ore2); w.addEntity(miner1); w.addEntity(miner2);
      assertTrue(w.findNearest(p3, Ore.class) == ore1);
      assertTrue(w.findNearest(p3, Miner.class) == miner2);

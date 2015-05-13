@@ -4,13 +4,14 @@ public class Miner extends Occupant{
    private int animation_rate;
    private int resource_count;
 
-   public Miner(String name, Object[] imgs, Point position, int rate, int resource_limit, int animation_rate){
+    public Miner(String name, Object[] imgs, Point position, int rate, int resource_limit,
+                  int animation_rate, int resource_count){
       super(name, imgs, position);
 
       this.rate = rate;
       this.resource_limit = resource_limit;
       this.animation_rate = animation_rate;
-      this.resource_count = 0;
+      this.resource_count = resource_count;
    }
 
    public int getRate(){
