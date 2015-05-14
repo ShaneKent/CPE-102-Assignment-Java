@@ -10,4 +10,24 @@ public class Rectangle {
       this.width = width;
       this.height = height;
    }
+
+   public int getTopLeftX()
+   {
+     return this.topLeftX;
+   }
+
+   public int getTopLeftY()
+   {
+     return this.topLeftY;
+   }
+
+   public int getWidth()
+   {
+     return this.width;
+   }
+
+   public int getHeight() 
+   {
+     return this.height;
+   }
 }
