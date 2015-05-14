@@ -1,6 +1,9 @@
+import processing.core.*;
+import java.util.List;
+
 public class MinerFull extends Miner{
    
-   public MinerFull(String name, Object[] imgs, Point position, int rate, int resource_limit, int animation_rate){
+   public MinerFull(String name, List<PImage> imgs, Point position, int rate, int resource_limit, int animation_rate){
        super(name, imgs, position, rate, resource_limit, animation_rate, resource_limit);
 
    }

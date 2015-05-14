@@ -1,16 +1,12 @@
-/* *
- *
- * We can leave the imgs variable as an Array of Objects for now. They are not very descript but
- * that will be fixed once we properly implement imgs.
- * 
- * */
+import java.util.List;
+import processing.core.*;
 
 public class Entity{
    private String name;   
-   private Object [] imgs; //This list of imgs as well as any other methods designed to operate on list list are arbitrary until we correctly implement Images.
+   private List<PImage> imgs;
    private int current_img;
 
-   public Entity(String name, Object[] imgs){
+   public Entity(String name, List<PImage> imgs){
       this.name = name;
       this.imgs = imgs;
       this.current_img = 0;
@@ -20,16 +16,16 @@ public class Entity{
       return this.name;
    }
 
-   public Object[] getImages(){
+   public List<PImage> getImages(){
       return this.imgs;
    }
 
-   public Object getImage(){
-      return this.imgs[this.current_img];
+   public PImage getImage(){
+      return this.imgs.get(this.current_img);
    }
    
    public void nextImage(){
-      this.current_img = (this.current_img + 1) % this.imgs.length;
+      this.current_img = (this.current_img + 1) % this.imgs.size();
    }
 
    public String entityString(){

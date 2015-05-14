@@ -1,6 +1,9 @@
+import processing.core.*;
+import java.util.List;
+
 public class Occupant extends GridItem{
    
-   public Occupant(String name, Object[] imgs, Point position){
+   public Occupant(String name, List<PImage> imgs, Point position){
       super(name, imgs, position);
       // We will need to initialize some sort of action list here.
    }

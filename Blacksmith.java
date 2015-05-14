@@ -1,10 +1,13 @@
+import processing.core.*;
+import java.util.List;
+
 public class Blacksmith extends Occupant{
    private int resource_limit;
    private int resource_count;
    private int rate;
    private int resource_distance;
 
-   public Blacksmith(String name, Object[] imgs, Point position, int resource_limit, int rate){
+   public Blacksmith(String name, List<PImage> imgs, Point position, int resource_limit, int rate){
       super(name, imgs, position);
       this.resource_limit = resource_limit;
       this.resource_count = 0;
@@ -12,7 +15,7 @@ public class Blacksmith extends Occupant{
       this.resource_distance = 1;
    }
 
-   public Blacksmith(String name, Object[] imgs, Point position, int resource_limit, int rate, int resource_distance){
+   public Blacksmith(String name, List<PImage> imgs, Point position, int resource_limit, int rate, int resource_distance){
       super(name, imgs, position);
       this.resource_limit = resource_limit;
       this.resource_count = 0;

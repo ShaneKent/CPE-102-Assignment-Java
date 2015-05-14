@@ -1,7 +1,10 @@
+import java.util.List;
+import processing.core.*;
+
 public class GridItem extends Entity{
    private Point position;
 
-   public GridItem(String name, Object[] imgs, Point position){
+   public GridItem(String name, List<PImage> imgs, Point position){
       super(name, imgs);
       this.position = position;
    }

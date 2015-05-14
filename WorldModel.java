@@ -1,3 +1,4 @@
+import processing.core.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +15,14 @@ public class WorldModel{
       this.num_cols = num_cols;
       this.occupancy = new Grid(num_cols, num_rows, null);
       this.entities = new ArrayList<Entity>();
+   }
+   
+   public int getNumRows(){
+      return num_rows;
+   }
+
+   public int getNumCols(){
+      return num_cols;
    }
 
    public boolean withinBounds(Point p){
@@ -96,7 +105,7 @@ public class WorldModel{
    }
    
    // Update this for new Image type.
-   public Object getBackgroundImage(Point pt){
+   public PImage getBackgroundImage(Point pt){
       if (withinBounds(pt)){
          return this.background.getCell(pt).getImage();
       }

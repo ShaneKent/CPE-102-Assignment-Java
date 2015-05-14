@@ -1,6 +1,9 @@
+import processing.core.*;
+import java.util.List;
+
 public class Obstacle extends GridItem{
    
-   public Obstacle(String name, Object[] imgs, Point position){
+   public Obstacle(String name, List<PImage> imgs, Point position){
       super(name, imgs, position);
    }
    

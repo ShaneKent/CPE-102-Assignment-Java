@@ -1,14 +1,17 @@
+import processing.core.*;
+import java.util.List;
+
 public class Vein extends Occupant{
    private int rate;
    private int resource_distance;
 
-   public Vein(String name, Object[] imgs, Point position, int rate){
+   public Vein(String name, List<PImage> imgs, Point position, int rate){
       super(name, imgs, position);
       this.rate = rate;
       this.resource_distance = 1;
    }
 
-   public Vein(String name, Object[] imgs, Point position, int rate, int resource_distance){
+   public Vein(String name, List<PImage> imgs, Point position, int rate, int resource_distance){
       super(name, imgs, position);
       this.rate = rate;
       this.resource_distance = resource_distance;

@@ -1,10 +1,13 @@
+import java.util.List;
+import processing.core.*;
+
 public class Miner extends Occupant{
    private int rate;
    private int resource_limit;
    private int animation_rate;
    private int resource_count;
 
-    public Miner(String name, Object[] imgs, Point position, int rate, int resource_limit,
+    public Miner(String name, List<PImage> imgs, Point position, int rate, int resource_limit,
                   int animation_rate, int resource_count){
       super(name, imgs, position);
 

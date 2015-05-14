@@ -1,3 +1,4 @@
+import processing.core.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -6,30 +7,35 @@ import java.util.List;
 import org.junit.Test;
 import java.lang.Math;
 
-public class TestCases{
+public class TestCases extends PApplet{
    private static final double DELTA = 0.00001;
 
    @Test
    public void testEntity(){
-      String[] imgs = {"img1", "img2"};
+      List<PImage> imgs = new ArrayList<PImage>();
+      imgs.add(loadImage("images/miner1.bmp"));
+      imgs.add(loadImage("images/miner2.bmp"));
       Entity e = new Entity("entity", imgs); 
       assertTrue("entity".equals(e.getName()));
-      assertTrue("img1".equals(e.getImage()));
+      assertTrue(loadImage("images/miner1.bmp") == e.getImage());
 
       e.nextImage();
-      assertTrue("img2".equals(e.getImage()));
+      assertTrue(loadImage("images/miner2.bmp") == e.getImage());
       assertTrue("unknown".equals(e.entityString()));
    }
 
    @Test
    public void testBackground(){
-      String[] imgs = {"img1", "img2"};
+      List<PImage> imgs = new ArrayList<PImage>();
+      imgs.add(loadImage("images/miner1.bmp"));
+      imgs.add(loadImage("images/miner2.bmp"));
+
       Background b = new Background("background", imgs);
       assertTrue("background".equals(b.getName()));
-      assertTrue("img1".equals(b.getImage()));
+      assertTrue(loadImage("images/miner1.bmp") == b.getImage());
 
       b.nextImage();
-      assertTrue("img2".equals(b.getImage()));
+      assertTrue(loadImage("images/miner2.bmp") == b.getImage());
       assertTrue("unknown".equals(b.entityString()));
    }
 
@@ -51,8 +57,10 @@ public class TestCases{
    }
 
    @Test
-       public void testGrid(){
-       String[] imgs = {"img1", "img2"};
+   public void testGrid(){
+       List<PImage> imgs = new ArrayList<PImage>();
+       imgs.add(loadImage("images/miner1.bmp"));
+       imgs.add(loadImage("images/miner2.bmp"));
        Entity e1 = new Entity("testEntity1", imgs);
        Entity e2 = new Entity("testEntity2", imgs);
        Point p = new Point(0,0);
@@ -65,8 +73,11 @@ public class TestCases{
    }
 
   @Test
-      public void testGridItem(){
-      String[] imgs = {"img1", "img2"};
+   public void testGridItem(){
+      List<PImage> imgs = new ArrayList<PImage>();
+      imgs.add(loadImage("images/miner1.bmp"));
+      imgs.add(loadImage("images/miner2.bmp"));
+
       Point p = new Point(0,0);
       Point newP = new Point(1,0);
       GridItem g = new GridItem("gridItem", imgs, p);
@@ -75,19 +86,20 @@ public class TestCases{
       assertTrue(g.getPosition() == newP);
       
       assertTrue("gridItem".equals(g.getName()));
-      assertTrue("img1".equals(g.getImage()));
+      assertTrue(loadImage("images/miner1.bmp") == g.getImage());
       g.nextImage();
-      assertTrue("img2".equals(g.getImage()));
+      assertTrue(loadImage("images/miner2.bmp") == g.getImage());
       assertTrue("unknown".equals(g.entityString()));
    }
 
   @Test
-      public void testObstacle(){
-      String[] imgs = {"img1", "img2"};
+   public void testObstacle(){
+      List<PImage> imgs = new ArrayList<PImage>();
+      imgs.add(loadImage("images/miner1.bmp"));
+      imgs.add(loadImage("images/miner2.bmp"));
       Point p = new Point(0,0);
       Obstacle o = new Obstacle("test", imgs, p);
       assertTrue("obstacle test 0 0".equals(o.entityString()));
-
 
       Point newP = new Point(1,0);
       assertTrue(o.getPosition() == p);
@@ -95,14 +107,16 @@ public class TestCases{
       assertTrue(o.getPosition() == newP);
       
       assertTrue("test".equals(o.getName()));
-      assertTrue("img1".equals(o.getImage()));
+      assertTrue(loadImage("images/miner1.bmp") == o.getImage());
       o.nextImage();
-      assertTrue("img2".equals(o.getImage()));
+      assertTrue(loadImage("images/miner2.bmp") == o.getImage());
   }
  
   @Test
-      public void testOccupant(){
-      String[] imgs = {"img1", "img2"};
+   public void testOccupant(){
+      List<PImage> imgs = new ArrayList<PImage>();
+      imgs.add(loadImage("images/miner1.bmp"));
+      imgs.add(loadImage("images/miner2.bmp"));
       Point p = new Point(0,0);
       Point newP = new Point(1,0);
       Occupant o = new Occupant("Occupant", imgs, p);
@@ -112,15 +126,17 @@ public class TestCases{
       o.setPosition(newP);
       assertTrue(o.getPosition() == newP);
       assertTrue("Occupant".equals(o.getName()));
-      assertTrue("img1".equals(o.getImage()));
+      assertTrue(loadImage("images/miner1.bmp") == o.getImage());
       o.nextImage();
-      assertTrue("img2".equals(o.getImage()));
+      assertTrue(loadImage("images/miner2.bmp") == o.getImage());
       assertTrue("unknown".equals(o.entityString()));
   }
 
  @Test
-     public void testOre(){
-     String[] imgs = {"img1", "img2"};
+  public void testOre(){
+     List<PImage> imgs = new ArrayList<PImage>();
+     imgs.add(loadImage("images/miner1.bmp"));
+     imgs.add(loadImage("images/miner2.bmp"));
      Point p = new Point(0,0);
      Ore o1 = new Ore("Ore1", imgs, p);
      Ore o2 = new Ore("Ore2", imgs, p, 1000);
@@ -136,14 +152,17 @@ public class TestCases{
      o1.setPosition(newP);
      assertTrue(o1.getPosition() == newP);
      assertTrue("Ore1".equals(o1.getName()));
-     assertTrue("img1".equals(o1.getImage()));
+     assertTrue(loadImage("images/miner1.bmp") == o1.getImage());
      o1.nextImage();
-     assertTrue("img2".equals(o1.getImage()));
+     assertTrue(loadImage("images/miner2.bmp") == o1.getImage());
  }
 
  @Test
-     public void testVein(){
-     String[] imgs = {"img1", "img2"};
+  public void testVein(){
+     List<PImage> imgs = new ArrayList<PImage>();
+     imgs.add(loadImage("images/miner1.bmp"));
+     imgs.add(loadImage("images/miner2.bmp"));
+
      Point p = new Point(0,0);
      Vein v1 = new Vein("test1", imgs, p, 1000);
      Vein v2 = new Vein("test2", imgs, p, 1000, 4);
@@ -161,14 +180,16 @@ public class TestCases{
      assertTrue(v1.getPosition() == newP);
       
      assertTrue("test1".equals(v1.getName()));
-     assertTrue("img1".equals(v1.getImage()));
+     assertTrue(loadImage("images/miner1.bmp") == v1.getImage());
      v1.nextImage();
-     assertTrue("img2".equals(v1.getImage()));
+     assertTrue(loadImage("images/miner2.bmp") == v2.getImage());
   }
 
  @Test
-     public void testQuake(){
-     String[] imgs = {"img1", "img2"};
+  public void testQuake(){
+     List<PImage> imgs = new ArrayList<PImage>();
+     imgs.add(loadImage("images/miner1.bmp"));
+     imgs.add(loadImage("images/miner2.bmp"));
      Point p = new Point(0,0);
      Quake q = new Quake("test1", imgs, p, 1000);
      assertTrue(q.getAnimationRate() == 1000);
@@ -180,15 +201,15 @@ public class TestCases{
      assertTrue(q.getPosition() == newP);
       
      assertTrue("test1".equals(q.getName()));
-     assertTrue("img1".equals(q.getImage()));
+     assertTrue(loadImage("images/miner1.bmp") == q.getImage());
      q.nextImage();
-     assertTrue("img2".equals(q.getImage()));
+     assertTrue(loadImage("images/miner2.bmp") == q.getImage());
      assertTrue("unknown".equals(q.entityString()));
  }
 
  @Test
-     public void testOreBlob(){
-     String[] imgs = {"img1", "img2"};
+  public void testOreBlob(){
+      List<PImage> imgs = new ArrayList<PImage>();   
      Point p = new Point(0,0);
      OreBlob o = new OreBlob("test", imgs, p, 1000, 5000);
      assertTrue(o.getRate() == 1000);
@@ -201,9 +222,9 @@ public class TestCases{
      assertTrue(o.getPosition() == newP);
       
      assertTrue("test".equals(o.getName()));
-     assertTrue("img1".equals(o.getImage()));
+     assertTrue(loadImage("images/miner1.bmp") == o.getImage());
      o.nextImage();
-     assertTrue("img2".equals(o.getImage()));
+     assertTrue(loadImage("images/miner2.bmp") == o.getImage());
      assertTrue("unknown".equals(o.entityString()));
  
      Entity b = new Background("background", imgs);
@@ -236,8 +257,10 @@ public class TestCases{
 
 
  @Test
-     public void testMiner(){
-     String[] imgs = {"img1", "img2"};
+  public void testMiner(){
+     List<PImage> imgs = new ArrayList<PImage>();
+     imgs.add(loadImage("images/miner1.bmp"));
+     imgs.add(loadImage("images/miner2.bmp"));
      Point p = new Point(0,0);
      Miner m = new Miner("test", imgs, p, 1000, 10, 5000, 0);
      assertTrue(m.getRate() == 1000);
@@ -256,9 +279,9 @@ public class TestCases{
 
  
      assertTrue("test".equals(m.getName()));
-     assertTrue("img1".equals(m.getImage()));
+     assertTrue(loadImage("images/miner1.bmp") == m.getImage());
      m.nextImage();
-     assertTrue("img2".equals(m.getImage()));
+     assertTrue(loadImage("images/miner2.bmp") == m.getImage());
      assertTrue("unknown".equals(m.entityString()));    
 
      Point pTest = new Point(0,1);
@@ -285,8 +308,10 @@ public class TestCases{
  }
 
  @Test
-     public void testMinerNotFull(){
-     String[] imgs = {"img1", "img2"};
+   public void testMinerNotFull(){
+     List<PImage> imgs = new ArrayList<PImage>();
+     imgs.add(loadImage("images/miner1.bmp"));
+     imgs.add(loadImage("images/miner2.bmp"));
      Point p = new Point(0,0);
      MinerNotFull m = new MinerNotFull("test", imgs, p, 1000, 10, 5000);
      assertTrue("miner test 0 0 10 1000 5000".equals(m.entityString()));
@@ -298,9 +323,9 @@ public class TestCases{
      assertTrue(m.getPosition() == newP);
       
      assertTrue("test".equals(m.getName()));
-     assertTrue("img1".equals(m.getImage()));
+     assertTrue(loadImage("images/miner1.bmp") == m.getImage());
      m.nextImage();
-     assertTrue("img2".equals(m.getImage()));
+     assertTrue(loadImage("images/miner2.bmp") == m.getImage());
      
      Entity b = new Background("background", imgs);
      WorldModel w = new WorldModel(5, 5, b);
@@ -332,8 +357,10 @@ public class TestCases{
  }
 
  @Test
-     public void testMinerFull(){
-     String[] imgs = {"img1", "img2"};
+   public void testMinerFull(){
+     List<PImage> imgs = new ArrayList<PImage>();
+     imgs.add(loadImage("images/miner1.bmp"));
+     imgs.add(loadImage("images/miner2.bmp"));
      Point p = new Point(0,0);
      MinerFull m = new MinerFull("test", imgs, p, 1000, 10, 5000);
 
@@ -344,9 +371,9 @@ public class TestCases{
      assertTrue(m.getPosition() == newP);
       
      assertTrue("test".equals(m.getName()));
-     assertTrue("img1".equals(m.getImage()));
+     assertTrue(loadImage("images/miner1.bmp") == m.getImage());
      m.nextImage(); 
-     assertTrue("img2".equals(m.getImage()));
+     assertTrue(loadImage("images/miner2.bmp") == m.getImage());
      assertTrue("unknown".equals(m.entityString()));     
 
      Entity b = new Background("background", imgs);
@@ -374,8 +401,11 @@ public class TestCases{
 
 
  @Test
-     public void testBlacksmith(){
-     String[] imgs = {"img1", "img2"};
+   public void testBlacksmith(){
+     List<PImage> imgs = new ArrayList<PImage>();
+     imgs.add(loadImage("images/miner1.bmp"));
+     imgs.add(loadImage("images/miner2.bmp"));
+
      Point p = new Point(0,0);
      Blacksmith b1 = new Blacksmith("test", imgs, p, 10, 1000);
      Blacksmith b2 = new Blacksmith("test", imgs, p, 10, 1000, 4);
@@ -403,14 +433,17 @@ public class TestCases{
      assertTrue(b1.getPosition() == newP);
 
      assertTrue("test".equals(b1.getName()));
-     assertTrue("img1".equals(b1.getImage()));
+     assertTrue(loadImage("images/miner1.bmp") == b1.getImage());
      b1.nextImage();
-     assertTrue("img2".equals(b1.getImage()));
+     assertTrue(loadImage("images/miner2.bmp") == b1.getImage());
  }
 
  @Test
-     public void testWorldModel(){
-     String[] imgs = {"img1", "img2"};
+   public void testWorldModel(){
+     List<PImage> imgs = new ArrayList<PImage>();
+     imgs.add(loadImage("images/miner1.bmp"));
+     imgs.add(loadImage("images/miner2.bmp"));
+
      Point p = new Point(0,0);
      Entity b = new Background("background", imgs);
      GridItem g1 = new GridItem("test1", imgs, p);
