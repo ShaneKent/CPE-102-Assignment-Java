@@ -5,15 +5,15 @@ public class OrderedList
 {
    private List<ListItem> list;
 
-   public OrderedList():
+   public OrderedList(){
       this.list = new ArrayList<ListItem>();
-
+   }
 
    public void insert(Object item, int ord)
    {
       int size = this.list.size();
       int idx = 0;
-      while (idx < size and this.list.get(idx).getOrd() < ord)
+      while (idx < size && this.list.get(idx).getOrd() < ord)
       {
          idx += 1;
       }
@@ -24,32 +24,31 @@ public class OrderedList
    {
       int size = this.list.size();
       int idx = 0;
-      while (idx < size and !this.list.get(idx).getItem().equals(item)):
-       { 
+      while (idx < size && !this.list.get(idx).getItem().equals(item))
+      { 
          idx += 1;
-       }
+      }
 
-      if (idx < size)
+      if (idx < size){
          this.list.remove(idx);
+      }
    }
 
    public ListItem head()
    {
-       if (!this.list.isEmpty())
+      if (!this.list.isEmpty()){
          return this.list.get(0);
-      else
-         return null;
-      // CHECK
-      //return self.list[0] if self.list else None;
+      }
+      return null;
    }
 
    public ListItem pop()
-   {  // what's this if statement for?
-      // CHECK
-       if (!this.list.isEmpty())
+   {
+      if (!this.list.isEmpty())
       {
          return this.list.remove(0);
       }
+      return null;
    }
 }
 
