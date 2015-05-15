@@ -35,7 +35,7 @@ public class OrderedList
 
    public ListItem head()
    {
-      if (this.list)
+       if (!this.list.isEmpty())
          return this.list.get(0);
       else
          return null;
@@ -46,7 +46,7 @@ public class OrderedList
    public ListItem pop()
    {  // what's this if statement for?
       // CHECK
-      if (this.list)
+       if (!this.list.isEmpty())
       {
          return this.list.remove(0);
       }
