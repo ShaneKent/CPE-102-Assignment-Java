@@ -1,21 +1,29 @@
 import processing.core.*;
+import static java.lang.Math.*;
 
 public class WorldView {
+   
+   //MOST IF NOT ALL FUNCTIONS IN HERE SHOULD ALREADY BE COMPLETED.
+   //IGNORE ALL THE MOUSE OVER FUNCTIONS.
+   //WILL FIX THE updateViewTile FUNCTION AFTER TALKING WITH KEEN.
 
-  public static final MOUSE_HOVER_ALPHA = 120;
-  public static final MOUSE_HOVER_EMPTY_COLOR = Color(0, 255, 0);
-  public static final MOUSE_HOVER_OCC_COLOR = Color(255, 0, 0);
+   //These don't need to be added, we are not supposed to do the mouse over functions.
+   //public static final MOUSE_HOVER_ALPHA = 120;
+   //public static final MOUSE_HOVER_EMPTY_COLOR = new Color(0, 255, 0);
+   //public static final MOUSE_HOVER_OCC_COLOR = new Color(255, 0, 0);
 
    private Rectangle viewport;
    private WorldModel world;
+   private PApplet screen;
    private int tile_width;
    private int tile_height;
    private int num_rows;
    private int num_cols;
 
-   public WorldView(int view_cols, int view_rows, WorldModel world, int tile_width, int tile_height) {
+   public WorldView(int view_cols, int view_rows, PApplet screen, WorldModel world, int tile_width, int tile_height) {
       this.viewport = new Rectangle(0, 0, view_cols, view_rows);
       this.world = world;
+      this.screen = screen;
       this.tile_width = tile_width;
       this.tile_height = tile_height;
       this.num_rows = world.getNumRows();
@@ -27,38 +35,39 @@ public class WorldView {
       for (int y = 0; y < viewport.getHeight(); y++){
          for (int x = 0; x < viewport.getWidth(); x++){
             Point w_pt = viewportToWorld(viewport, new Point(x, y));
+            PImage img = world.getBackgroundImage(w_pt);
+            screen.image(img, x * tile_width, y * tile_height);
         }
       }
     }
 
-    public void draw_entities()
+    public void drawEntities()
      {
-        for (Entity entity : world.entities) {
-          if (viewport.collidepoint(entity.position.getX(), entity.position.getY())) {
-             Point v_pt = world_to_viewport(viewport, entity.position);
-             screen.blit(entity.get_image(),
-                (v_pt.getX() * tile_width, v_pt.getY() * tile_height));
+        for (Entity entity : world.getEntities()) {
+           if (viewport.collidePoint(((GridItem)entity).getPosition().getX(), ((GridItem)entity).getPosition().getY())) {
+             Point v_pt = worldToViewport(viewport, ((GridItem)entity).getPosition());
+             screen.image(entity.getImage(), v_pt.getX() * tile_width, v_pt.getY() * tile_height);
            }
         } 
      }
 
-   public void draw_viewport()
+   public void drawViewport()
    {
-      this.draw_background();
-      this.draw_entities();
+      this.drawBackground();
+      this.drawEntities();
     }
 
-   public void update_view(view_delta=(0,0), mouse_img=None) {
-      viewport = create_shifted_viewport(viewport, view_delta,
-         num_rows, num_cols);
-      mouse_img = mouse_img;
-      draw_viewport();
-      pygame.display.update();
-      mouse_move(mouse_pt);
+   public void updateView(int[] view_delta) {
+      viewport = createShiftedViewport(viewport, view_delta, num_rows, num_cols);
+      drawViewport();
+      //pygame.display.update();
     }
-
-   public void update_view_tiles(tiles) {
-      rects = [];
+   
+   /*
+    * Need to create the updateOnTime function inside the WorldModel class.
+   //NOT CORRECTED
+   public void updateViewTiles(tiles) {
+      List<Rectangle> rects = new ArrayList<Rectangle>();
       for tile in tiles {
          if viewport.collidepoint(tile.x, tile.y) {
             Point v_pt = world_to_viewport(viewport, tile);
@@ -71,31 +80,35 @@ public class WorldView {
           }
        }
       pygame.display.update(rects);
-    }
+   }
+   */
+   
+   public Rectangle updateTile(Point view_tile_pt, PImage surface) {
+      int abs_x = view_tile_pt.getX() * tile_width;
+      int abs_y = view_tile_pt.getY() * tile_height;
 
-   public Rectangle update_tile(Point view_tile_pt, TYPE surface) {
-      int abs_x = view_tile_pt.x * tile_width;
-      int abs_y = view_tile_pt.y * tile_height;
-
-      screen.blit(surface, (abs_x, abs_y));
+      screen.image(surface, abs_x, abs_y);
 
       return new Rectangle(abs_x, abs_y, tile_width, tile_height);
-    }
+   }
 
-   public TYPE get_tile_image(Point view_tile_pt) {
-      Point pt = viewport_to_world(viewport, view_tile_pt);
-      bgnd = world.get_background_image(pt);
-      occupant = world.get_tile_occupant(pt);
-      if (occupant) {
-         img = pygame.Surface((tile_width, tile_height));
-         img.blit(bgnd, (0, 0));
-         img.blit(occupant.get_image(), (0,0));
+   public PImage getTileImage(Point view_tile_pt) {
+      Point pt = viewportToWorld(viewport, view_tile_pt);
+      PImage bgnd = world.getBackgroundImage(pt);
+      Entity occupant = world.getTileOccupant(pt);
+      if (occupant != null) {
+         PImage img = new PImage(tile_width, tile_height);
+         img.set(0, 0, bgnd);
+         img.set(0, 0, occupant.getImage());
          return img;
       }
-      else
+      else{
          return bgnd;
-     }
-
+      }
+   }
+   /*
+    * I don't believe we need to do these because they correspond to mouse over animations.
+    *
    public Surface create_mouse_surface(boolean occupied) {
       surface = pygame.Surface((tile_width, tile_height));
       surface.set_alpha(MOUSE_HOVER_ALPHA);
@@ -108,7 +121,7 @@ public class WorldView {
 
       return surface;
     }
-
+   
    public Rectangle update_mouse_cursor() {
       return update_tile(mouse_pt,
          create_mouse_surface(world.is_occupied(viewport_to_world(viewport, mouse_pt))));
@@ -128,22 +141,22 @@ public class WorldView {
 
       pygame.display.update(rects);
     }
-
-   public Point viewport_to_world(Rectangle viewport, Point pt) {
-      return new Point(pt.x + viewport.left, pt.y + viewport.top);
+   */
+   public static Point viewportToWorld(Rectangle viewport, Point pt) {
+      return new Point(pt.getX() + viewport.getLeft(), pt.getY() + viewport.getTop());
     }
 
-   public Point world_to_viewport(Rectangle viewport, Point pt) {
-      return new Point(pt.getX() - viewport.left, pt.getY() - viewport.top);
+   public static Point worldToViewport(Rectangle viewport, Point pt) {
+      return new Point(pt.getX() - viewport.getLeft(), pt.getY() - viewport.getTop());
     }
 
-   public int clamp(v, low, high) {
+   public static int clamp(int v, int low, int high) {
      return min(high, max(v, low));
     }
 
-   public Rectangle create_shifted_viewport(Rectangle viewport, int[] delta, int num_rows, int num_cols) {
-      int new_x = clamp(viewport.left + delta[0], 0, num_cols - viewport.getWidth());
-      int new_y = clamp(viewport.top + delta[1], 0, num_rows - viewport.getHeight());
+   public static Rectangle createShiftedViewport(Rectangle viewport, int[] delta, int num_rows, int num_cols) {
+      int new_x = clamp(viewport.getLeft() + delta[0], 0, num_cols - viewport.getWidth());
+      int new_y = clamp(viewport.getTop() + delta[1], 0, num_rows - viewport.getHeight());
 
       return new Rectangle(new_x, new_y, viewport.getWidth(), viewport.getHeight());
     }

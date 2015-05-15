@@ -103,8 +103,7 @@ public class WorldModel{
          this.occupancy.setCell(pt, null);
       }
    }
-   
-   // Update this for new Image type.
+
    public PImage getBackgroundImage(Point pt){
       if (withinBounds(pt)){
          return this.background.getCell(pt).getImage();
@@ -149,4 +148,6 @@ public class WorldModel{
 
       return null;
    }
+
+   
 }
