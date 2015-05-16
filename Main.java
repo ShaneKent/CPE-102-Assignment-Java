@@ -1,0 +1,99 @@
+import java.util.List;
+import java.util.ArrayList;
+import processing.core.*;
+import processing.event.KeyEvent;
+
+public class Main extends PApplet {
+   final boolean RUN_AFTER_LOAD = true;
+
+   final String IMAGE_LIST_FILE_NAME = "imagelist";
+   final String WORLD_FILE = "gaia.sav";
+   
+   final int WORLD_WIDTH_SCALE = 2;
+   final int WORLD_HEIGHT_SCALE = 2;
+   
+   final int SCREEN_WIDTH = 640;
+   final int SCREEN_HEIGHT = 480;
+   final int TILE_WIDTH = 32;
+   final int TILE_HEIGHT = 32;
+
+   private long next_time;
+   private WorldModel world;
+   private WorldView view;
+   private List<PImage> i_store;
+
+   public static Background createDefaultBackground(List<PImage> img){
+      return new Background(ImageStore.DEFAULT_IMAGE_NAME, img);
+   }   
+
+   public static void loadWorld(WorldModel world, List<PImage> i_store, String filename){
+
+   }
+
+   public void setup(){
+      size(SCREEN_WIDTH, SCREEN_HEIGHT);
+      background(color(255, 255, 255));
+
+      i_store = ImageStore.loadImages(IMAGE_LIST_FILE_NAME, TILE_WIDTH, TILE_HEIGHT);
+      i_store.add(loadImage("images/grass.bmp"));
+      int num_cols = SCREEN_WIDTH / (TILE_WIDTH); //* WORLD_WIDTH_SCALE);
+      int num_rows = SCREEN_HEIGHT / (TILE_HEIGHT);// * WORLD_HEIGHT_SCALE);
+      Background defaultBackground = createDefaultBackground(ImageStore.getImages(i_store, ImageStore.DEFAULT_IMAGE_NAME));
+
+      world = new WorldModel(num_rows, num_cols, defaultBackground);
+      view = new WorldView(this, SCREEN_WIDTH/TILE_WIDTH, SCREEN_HEIGHT/TILE_HEIGHT, world, TILE_WIDTH, TILE_HEIGHT);
+      loadWorld(world, i_store, WORLD_FILE);
+      
+      List<PImage> ore_image = new ArrayList<PImage>();
+      ore_image.add(loadImage("images/ore.bmp"));
+      Ore ore = new Ore("ore", ore_image, new Point(0, 0));
+      world.addEntity(ore);
+
+      view.updateView();
+      //Controller.activityLoop(view, world);
+   
+      next_time = 0;
+   }
+
+   public void draw(){
+      long time = System.currentTimeMillis();
+      if (time >= next_time){
+         next_time = time + 100;
+      }
+      background(color(255, 255, 255));
+      view.updateView();
+   }
+   
+   public void keyPressed(KeyEvent e){
+      int keyCode = e.getKeyCode();
+      int[] view_delta = new int[2];
+      view_delta[0] = 0;
+      view_delta[1] = 0;
+      switch ( keyCode ){
+         case 37:
+            System.out.println("left pressed.");
+            view_delta[0] = -1;
+            view.updateView(view_delta);
+            break;
+         case 38:
+            System.out.println("up pressed.");
+            view_delta[1] = -1;
+            view.updateView(view_delta);
+            break;
+         case 39:
+            System.out.println("right pressed.");
+            view_delta[0] = 1;
+            view.updateView(view_delta);
+            break;
+         case 40:
+            System.out.println("down pressed.");
+            view_delta[1] = 1;
+            view.updateView(view_delta);
+            break;
+      }
+   }
+
+   public static void main(String[] args){
+      PApplet.main("Main");
+   }
+}

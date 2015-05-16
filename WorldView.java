@@ -20,7 +20,7 @@ public class WorldView {
    private int num_rows;
    private int num_cols;
 
-   public WorldView(int view_cols, int view_rows, PApplet screen, WorldModel world, int tile_width, int tile_height) {
+   public WorldView(PApplet screen, int view_cols, int view_rows, WorldModel world, int tile_width, int tile_height) {
       this.viewport = new Rectangle(0, 0, view_cols, view_rows);
       this.world = world;
       this.screen = screen;
@@ -61,8 +61,16 @@ public class WorldView {
       viewport = createShiftedViewport(viewport, view_delta, num_rows, num_cols);
       drawViewport();
       //pygame.display.update();
-    }
+   }
    
+   public void updateView(){
+      int[] view_delta = new int[2];
+      view_delta[0] = 0;
+      view_delta[1] = 0;
+      viewport = createShiftedViewport(viewport, view_delta, num_rows, num_cols);
+      drawViewport();
+   }
+
    /*
     * Need to create the updateOnTime function inside the WorldModel class.
    //NOT CORRECTED
