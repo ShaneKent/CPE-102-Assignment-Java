@@ -1,7 +1,7 @@
 import processing.core.*;
 import java.util.List;
 
-public class Blacksmith extends Occupant{
+public class Blacksmith extends GridItem{
    private int resource_limit;
    private int resource_count;
    private int rate;
