@@ -39,7 +39,7 @@ public class MinerFull extends Miner{
             removePendingAction(action[0]);
 
             Point entity_pt = this.getPosition();
-            Smith smith = (Smith) world.findNearest(entity_pt, Blacksmith.class);
+            Blacksmith smith = (Blacksmith) world.findNearest(entity_pt, Blacksmith.class);
             Point[] tiles = this.minerToSmith(world, smith);
             
             MinerFull new_entity = this;
