@@ -8,13 +8,15 @@ public class WorldModel{
    private int num_cols;
    private Grid occupancy;
    private List<Entity> entities;
-   
+   private OrderedList actionQueue;
+
    public WorldModel(int num_rows, int num_cols, Entity background){
       this.background = new Grid(num_cols, num_rows, background);
       this.num_rows = num_rows;
       this.num_cols = num_cols;
       this.occupancy = new Grid(num_cols, num_rows, null);
       this.entities = new ArrayList<Entity>();
+      this.actionQueue = new OrderedList();
    }
    
    public int getNumRows(){
@@ -103,6 +105,25 @@ public class WorldModel{
          this.occupancy.setCell(pt, null);
       }
    }
+
+   public void scheduleAction(Object action, long time){
+      actionQueue.insert(action, time);
+   }
+   
+   public void unscheduleAction(ListItem action){
+      actionQueue.remove(action);
+   }
+
+   /*
+   public RETURN updateOnTime(long time){
+      List<Actions> tiles = new ArrayList<Actions>();
+      Object next = acitionQueue.head();
+      while (next != null && next.ord < time){
+         actionQueue.pop();
+         tiles.extend(next.item(ticks));
+         next = actionQueue.head();
+      return tiles;
+   */
 
    public PImage getBackgroundImage(Point pt){
       if (withinBounds(pt)){

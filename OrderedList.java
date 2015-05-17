@@ -9,7 +9,7 @@ public class OrderedList
       this.list = new ArrayList<ListItem>();
    }
 
-   public void insert(Object item, int ord)
+   public void insert(Object item, long ord)
    {
       int size = this.list.size();
       int idx = 0;

@@ -29,8 +29,6 @@ public class WorldView {
       this.num_rows = world.getNumRows();
       this.num_cols = world.getNumCols();
 
-      System.out.println(view_rows + " " + view_cols);
-      System.out.println(num_rows + " " + num_cols);
    }
 
 
@@ -117,42 +115,7 @@ public class WorldView {
          return bgnd;
       }
    }
-   /*
-    * I don't believe we need to do these because they correspond to mouse over animations.
-    *
-   public Surface create_mouse_surface(boolean occupied) {
-      surface = pygame.Surface((tile_width, tile_height));
-      surface.set_alpha(MOUSE_HOVER_ALPHA);
-      Color color = MOUSE_HOVER_EMPTY_COLOR;
-      if (occupied) 
-         color = MOUSE_HOVER_OCC_COLOR;
-      surface.fill(color);
-      if (mouse_img) 
-         surface.blit(mouse_img, (0, 0));
 
-      return surface;
-    }
-   
-   public Rectangle update_mouse_cursor() {
-      return update_tile(mouse_pt,
-         create_mouse_surface(world.is_occupied(viewport_to_world(viewport, mouse_pt))));
-     }
-
-   public void mouse_move(Point new_mouse_pt) {
-      rects = [];
-
-      rects.append(update_tile(mouse_pt,
-         get_tile_image(mouse_pt)));
-
-      if (viewport.collidepoint(new_mouse_pt.getX() + viewport.left,
-         new_mouse_pt.getX() + viewport.top)) 
-         Point mouse_pt = new_mouse_pt;
-
-      rects.append(update_mouse_cursor());
-
-      pygame.display.update(rects);
-    }
-   */
    public static Point viewportToWorld(Rectangle viewport, Point pt) {
       return new Point(pt.getX() + viewport.getLeft(), pt.getY() + viewport.getTop());
    }
@@ -170,7 +133,5 @@ public class WorldView {
       int new_y = clamp(viewport.getTop() + delta[1], 0, num_rows - viewport.getHeight());
       
       return new Rectangle(new_x, new_y, viewport.getWidth(), viewport.getHeight());
-    }
-
-
+   }
 }

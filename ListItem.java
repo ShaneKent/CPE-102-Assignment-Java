@@ -1,9 +1,9 @@
 public class ListItem
 {
    private Object item;
-   private int ord; 
+   private long ord; 
 
-   public ListItem(Object item, int ord){
+   public ListItem(Object item, long ord){
       this.item = item;
       this.ord = ord;
    }
@@ -13,7 +13,7 @@ public class ListItem
       return this.item;
    }
 
-    public int getOrd()
+   public long getOrd()
    {
       return this.ord;
    }
