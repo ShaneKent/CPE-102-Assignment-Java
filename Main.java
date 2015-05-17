@@ -1,5 +1,7 @@
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.LinkedHashMap;
 import processing.core.*;
 import processing.event.KeyEvent;
 
@@ -20,13 +22,13 @@ public class Main extends PApplet {
    private long next_time;
    private WorldModel world;
    private WorldView view;
-   private List<PImage> i_store;
+   private LinkedHashMap<String, List<PImage>> i_store;
 
    public static Background createDefaultBackground(List<PImage> img){
       return new Background(ImageStore.DEFAULT_IMAGE_NAME, img);
    }   
 
-   public static void loadWorld(WorldModel world, List<PImage> i_store, String filename){
+   public static void loadWorld(WorldModel world, LinkedHashMap<String, List<PImage>> i_store, String filename){
 
    }
 
@@ -34,11 +36,17 @@ public class Main extends PApplet {
       size(SCREEN_WIDTH, SCREEN_HEIGHT);
       background(color(255, 255, 255));
 
-      i_store = ImageStore.loadImages(IMAGE_LIST_FILE_NAME, TILE_WIDTH, TILE_HEIGHT);
-      i_store.add(loadImage("images/grass.bmp"));
+      i_store = ImageStore.loadImages(this, IMAGE_LIST_FILE_NAME, TILE_WIDTH, TILE_HEIGHT);
+     
+      //Uncomment this to see that the images are loading properly.
+      //for (String key : i_store.keySet()){
+      //   System.out.println(key + " " + i_store.get(key) + "\n");
+      //}
+
       int num_cols = SCREEN_WIDTH / (TILE_WIDTH); //* WORLD_WIDTH_SCALE);
       int num_rows = SCREEN_HEIGHT / (TILE_HEIGHT);// * WORLD_HEIGHT_SCALE);
       Background defaultBackground = createDefaultBackground(ImageStore.getImages(i_store, ImageStore.DEFAULT_IMAGE_NAME));
+      System.out.println(defaultBackground.getImages());
 
       world = new WorldModel(num_rows, num_cols, defaultBackground);
       view = new WorldView(this, SCREEN_WIDTH/TILE_WIDTH, SCREEN_HEIGHT/TILE_HEIGHT, world, TILE_WIDTH, TILE_HEIGHT);
