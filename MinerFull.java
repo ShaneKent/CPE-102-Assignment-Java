@@ -45,8 +45,8 @@ public class MinerFull extends Miner{
             MinerFull new_entity = this;
             if (tiles.length == 2)
             {
-               new_entity = (MinerNotFull) Actions.tryTransformMiner(world, this,
-                  this::tryTransformMinerNotFull);
+               new_entity = (MinerFull) Actions.tryTransformMiner(world, this,
+                  this::tryTransformMinerFull);
             } 
 
             Actions.scheduleAction(world, new_entity,
