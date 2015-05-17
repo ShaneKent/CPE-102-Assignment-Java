@@ -46,7 +46,7 @@ public class MinerNotFull extends Miner{
          }  
     }
 
-   public static LongConsumer create_miner_action(WorldModel world, ImageStore i_store)
+   public static LongConsumer createMinerAction(WorldModel world, ImageStore i_store)
      {
          Long Consumer[] action = { null };
          action[0] = (long current_ticks) -> {
