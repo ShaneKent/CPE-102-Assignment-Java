@@ -105,21 +105,27 @@ public class Actions
     }
     */
     
-    public static void scheduleAction(WorldModel world, AnimatedActor entity, LongConsumer action, long time)
+    public static void scheduleAction(WorldModel world, Occupant entity, LongConsumer action, long time)
     {
         entity.addPendingAction(action);
         world.scheduleAction(action, time);
     }
     
-    /*
-    public static void scheduleAnimation(WorldModel world, Entity entity, int repeat_count)
+    
+    public static void scheduleAnimation(WorldModel world, AnimatedActor entity, int repeat_count)
     {
         scheduleAction(world, entity,
                        createAnimationAction(world, entity, repeat_count),
                        entity.getAnimationRate());
     }
+    
+    public static void scheduleAnimation(WorldModel world, AnimatedActor entity){
+        scheduleAction(world, entity,
+                        createAnimationAction(world, entity, 0),
+                        entity.getAnimationRate());
+   }
 
-      
+    /*  
     public static void scheduleAnimation(WorldModel world, Entity entity)
     {
       int repeat_count = 0;

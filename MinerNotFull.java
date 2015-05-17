@@ -1,5 +1,6 @@
 import processing.core.*;
 import java.util.List;
+import java.util.LinkedHashMap;
 
 public class MinerNotFull extends Miner{
    
@@ -44,5 +45,8 @@ public class MinerNotFull extends Miner{
             return m;
          }  
     }
-
+    
+   public void scheduleMiner(WorldModel world, long ticks, LinkedHashMap<String, List<PImage>> i_store){
+      Actions.scheduleAnimation(world, this);
+   }
 }

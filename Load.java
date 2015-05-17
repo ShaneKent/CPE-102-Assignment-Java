@@ -79,7 +79,7 @@ public class Load{
       if (new_entity != null){
          world.addEntity(new_entity);
          if (run){
-            //scheduleEntity(world, new_entity, i_store);
+            scheduleEntity(world, new_entity, i_store);
          }
       }
    }
@@ -177,4 +177,11 @@ public class Load{
       return null;
    }
 
+   public static void scheduleEntity(WorldModel world, Entity entity, LinkedHashMap<String, List<PImage>> i_store){
+      if (entity instanceof MinerNotFull){
+         ((MinerNotFull)entity).scheduleMiner(world, 0, i_store);
+      }
+   }
+      
+   
 }
