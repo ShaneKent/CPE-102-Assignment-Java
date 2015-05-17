@@ -1,3 +1,6 @@
+import processing.core.*;
+import java.util.List;
+
 public class AnimatedActor extends Occupant
 {
 
