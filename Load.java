@@ -172,6 +172,9 @@ public class Load{
          Obstacle obstacle = new Obstacle(properties[OBSTACLE_NAME],
                ImageStore.getImages(i_store, properties[PROPERTY_KEY]),
                new Point(Integer.parseInt(properties[OBSTACLE_COL]), Integer.parseInt(properties[OBSTACLE_ROW])));
+         if (Integer.parseInt(properties[OBSTACLE_ROW]) > 15){
+            System.out.println(properties[OBSTACLE_ROW]);
+         }
          return obstacle;
       }
       return null;

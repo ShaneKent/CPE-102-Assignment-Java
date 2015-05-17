@@ -48,8 +48,8 @@ public class Main extends PApplet {
 
       i_store = ImageStore.loadImages(this, IMAGE_LIST_FILE_NAME, TILE_WIDTH, TILE_HEIGHT);
 
-      int num_cols = SCREEN_WIDTH / (TILE_WIDTH); //* WORLD_WIDTH_SCALE);
-      int num_rows = SCREEN_HEIGHT / (TILE_HEIGHT);// * WORLD_HEIGHT_SCALE);
+      int num_cols = SCREEN_WIDTH / TILE_WIDTH * WORLD_WIDTH_SCALE;
+      int num_rows = SCREEN_HEIGHT / TILE_HEIGHT * WORLD_HEIGHT_SCALE;
       Background defaultBackground = createDefaultBackground(ImageStore.getImages(i_store, ImageStore.DEFAULT_IMAGE_NAME));
 
       world = new WorldModel(num_rows, num_cols, defaultBackground);
@@ -67,8 +67,8 @@ public class Main extends PApplet {
       if (time >= next_time){
          next_time = time + 100;
       }
-      //background(color(255, 255, 255));
-      //view.updateView();
+      background(color(255, 255, 255));
+      view.updateView();
    }
    
    public void keyPressed(KeyEvent e){
@@ -78,22 +78,18 @@ public class Main extends PApplet {
       view_delta[1] = 0;
       switch ( keyCode ){
          case 37:
-            System.out.println("left pressed.");
             view_delta[0] = -1;
             view.updateView(view_delta);
             break;
          case 38:
-            System.out.println("up pressed.");
             view_delta[1] = -1;
             view.updateView(view_delta);
             break;
          case 39:
-            System.out.println("right pressed.");
             view_delta[0] = 1;
             view.updateView(view_delta);
             break;
          case 40:
-            System.out.println("down pressed.");
             view_delta[1] = 1;
             view.updateView(view_delta);
             break;

@@ -28,6 +28,9 @@ public class WorldView {
       this.tile_height = tile_height;
       this.num_rows = world.getNumRows();
       this.num_cols = world.getNumCols();
+
+      System.out.println(view_rows + " " + view_cols);
+      System.out.println(num_rows + " " + num_cols);
    }
 
 
@@ -152,20 +155,20 @@ public class WorldView {
    */
    public static Point viewportToWorld(Rectangle viewport, Point pt) {
       return new Point(pt.getX() + viewport.getLeft(), pt.getY() + viewport.getTop());
-    }
+   }
 
    public static Point worldToViewport(Rectangle viewport, Point pt) {
       return new Point(pt.getX() - viewport.getLeft(), pt.getY() - viewport.getTop());
-    }
+   }
 
    public static int clamp(int v, int low, int high) {
-     return min(high, max(v, low));
-    }
+      return min(high, max(v, low));
+   }
 
    public static Rectangle createShiftedViewport(Rectangle viewport, int[] delta, int num_rows, int num_cols) {
       int new_x = clamp(viewport.getLeft() + delta[0], 0, num_cols - viewport.getWidth());
       int new_y = clamp(viewport.getTop() + delta[1], 0, num_rows - viewport.getHeight());
-      //System.out.println((viewport.getLeft() + delta[0]) + " " + (viewport.getTop() + delta[1]));
+      
       return new Rectangle(new_x, new_y, viewport.getWidth(), viewport.getHeight());
     }
 

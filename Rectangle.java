@@ -40,6 +40,7 @@ public class Rectangle {
    
    //Format copied from Pygame documentation.
    public boolean collidePoint(int x, int y){
-      return (x >= getLeft() && x < getRight()) && (y > getBottom() && y <= getHeight());
+      System.out.println(getLeft() + " " + getTop() + " " + getRight() + " " + getBottom());
+      return (x >= getLeft() && x < getRight()) && (y > getBottom() && y <= 2 * getHeight());
    }
 }
