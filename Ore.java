@@ -25,7 +25,7 @@ public class Ore extends Occupant{
    }
 
    public void scheduleOre(WorldModel world, long ticks, LinkedHashMap<String, List<PImage>> i_store){
-      Actions.scheduleAnimation(world, this);
+      //Actions.scheduleAnimation(world, this);
    }
 }
 

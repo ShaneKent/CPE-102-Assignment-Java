@@ -50,7 +50,7 @@ public class OreBlob extends Mover
    }
 
 
-   public void scheduleOreBlob(WorldModel world, long ticks, LinkedHashMap<String, List<PImage>> i_store){
+   public void scheduleBlob(WorldModel world, long ticks, LinkedHashMap<String, List<PImage>> i_store){
       Actions.scheduleAnimation(world, this);
    }
 

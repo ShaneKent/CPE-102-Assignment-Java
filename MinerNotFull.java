@@ -45,6 +45,32 @@ public class MinerNotFull extends Miner{
             return m;
          }  
     }
+
+   public static LongConsumer create_miner_action(WorldModel world, ImageStore i_store)
+     {
+         Long Consumer[] action = { null };
+         action[0] = (long current_ticks) -> {
+            this.removePendingAction(action);
+
+            Point entity_pt = this.getPosition();
+            Ore ore = world.findNearest(entity_pt, Ore);
+            Point[] tiles = this.minerToOre(world, ore);
+            
+            Entity new_entity = this;
+            if (tiles.length == 2)
+            {
+               new_entity = actions.tryTransformMiner(world, this,
+                  this.tryTransformMiner);
+            } 
+
+            actions.scheduleAction(world, new_entity,
+               new_entity.createMinerAction(world, i_store),
+               current_ticks + new_entity.getRate());
+            return tiles;
+         };
+
+         return action[0];
+     }
     
    public void scheduleMiner(WorldModel world, long ticks, LinkedHashMap<String, List<PImage>> i_store){
       Actions.scheduleAnimation(world, this);
