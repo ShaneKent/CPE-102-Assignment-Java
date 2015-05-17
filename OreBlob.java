@@ -1,22 +1,10 @@
 import processing.core.*;
 import java.util.List;
 
-public class OreBlob extends Occupant{
-   private int rate;
-   private int animation_rate;
-
+public class OreBlob extends Mover
+{
    public OreBlob(String name, List<PImage> imgs, Point position, int rate, int animation_rate){
-      super(name, imgs, position);
-      this.rate = rate;
-      this.animation_rate = animation_rate;
-   }
-
-   public int getRate(){
-      return this.rate;
-   }
-
-   public int getAnimationRate(){
-      return this.animation_rate;
+      super(name, imgs, position, rate, animation_rate);
    }
 
    public Point[] blobToVein(WorldModel world, Vein v){

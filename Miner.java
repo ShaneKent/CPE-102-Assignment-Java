@@ -1,24 +1,17 @@
 import java.util.List;
 import processing.core.*;
 
-public class Miner extends Occupant{
-   private int rate;
+public class Miner extends Mover 
+{
    private int resource_limit;
-   private int animation_rate;
    private int resource_count;
 
     public Miner(String name, List<PImage> imgs, Point position, int rate, int resource_limit,
                   int animation_rate, int resource_count){
-      super(name, imgs, position);
+      super(name, imgs, position, rate, animation_rate);
 
-      this.rate = rate;
       this.resource_limit = resource_limit;
-      this.animation_rate = animation_rate;
       this.resource_count = resource_count;
-   }
-
-   public int getRate(){
-      return this.rate;
    }
 
    public void setResourceCount(int num){
@@ -33,10 +26,7 @@ public class Miner extends Occupant{
       return this.resource_limit;
    }
 
-   public int getAnimationRate(){
-      return this.animation_rate;
-   }
-      
+     
    public Point nextPosition(WorldModel world, Point dest_pt){
       Point e_pt = this.getPosition();
       int horiz = Point.sign(dest_pt.getX() - e_pt.getX());
