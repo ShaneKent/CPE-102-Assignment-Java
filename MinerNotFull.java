@@ -32,14 +32,21 @@ public class MinerNotFull extends Miner{
       }
    }
 
-   public Miner tryTransformMiner(WorldModel world){
-      if (this.getResourceCount() < this.getResourceLimit()){
-         return this;
-      }
-      else{
-         Miner m = new MinerFull(this.getName(), this.getImages(), this.getPosition(),
-              this.getRate(), this.getResourceLimit(), this.getAnimationRate());
-         return m;
-      }
-   }
+   public static Function<WorldModel, Entity> tryTransformMinerNotFull()
+    {
+      Function<WorldModel, Entity> transform = { null };
+      transform[0] = (WorldModel world)-> {
+         if (this.getResourceCount() < this.getResourceLimit()){
+            return this;
+         }
+         else
+         {
+            Miner m = new MinerFull(this.getName(), this.getImages(), this.getPosition(),
+                 this.getRate(), this.getResourceLimit(), this.getAnimationRate());
+            return m;
+         }
+       };
+       return transform[0];   
+    }
+
 }

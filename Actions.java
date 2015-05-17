@@ -18,10 +18,10 @@ public class Actions
     
     // empty constructor
     
-    public static createAnimationAction(WorldModel world, Entity entity,
+    public static LongConsumer createAnimationAction(WorldModel world, Entity entity,
                                         int repeat_count)
     {
-      Act[] func = { null };
+      LongConsumer[] func = { null };
       func[0] = (long current_ticks) -> {
        entity.removePendingAction(action);
 
@@ -34,7 +34,7 @@ public class Actions
                current_ticks + entity.getAnimationRate());
           }
 
-       return [entity.getPosition()];
+        // return [entity.getPosition()];
        };
 
       return func[0];
@@ -42,9 +42,9 @@ public class Actions
     
     
     public static Entity tryTransformMiner(WorldModel world, Entity entity,
-                                           Act transform)
+                                           Function<WorldModel, Entity> transform)
     {
-        Entity new_entity = transform.FUNCTIONNAME(world);
+        Entity new_entity = transform.apply(world);
         if (entity != new_entity)
         {
             clearPendingActions(world, entity);
@@ -58,7 +58,7 @@ public class Actions
     
     public static void removeEntity(WorldModel world, Entity entity)
     {
-        for (Act action : entity.getPendingActions())
+        for (LongConsumer action : entity.getPendingActions())
             world.unscheduleAction(action);
         entity.clearPendingActions();
         world.removeEntity(entity);
@@ -71,7 +71,7 @@ public class Actions
                                    getImages(i_store, 'blob'),
                                    randint(BLOB_ANIMATION_MIN, BLOB_ANIMATION_MAX)
                                    * BLOB_ANIMATION_RATE_SCALE);
-        blob.schedule_blob(world, ticks, i_store);
+        blob.scheduleBlob(world, ticks, i_store);
         return blob;
     }
     
@@ -107,7 +107,7 @@ public class Actions
     
     
     public static void scheduleAction(WorldModel world, Entity entity,
-                                      Act action, long time)
+                                      LongConsumer action, long time)
     {
         entity.addPendingAction(action);
         world.scheduleAction(action, time);
@@ -134,7 +134,7 @@ public class Actions
     
     public static void clearPendingActions(WorldModel world, Entity entity)
     {
-        for (Act action : entity.getPendingActions())
+        for (LongConsumer action : entity.getPendingActions())
             world.unscheduleAction(action);
         entity.clearPendingActions();
     }
