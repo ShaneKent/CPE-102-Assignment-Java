@@ -66,7 +66,6 @@ public class MinerNotFull extends Miner{
             actions.scheduleAction(world, new_entity,
                new_entity.createMinerAction(world, i_store),
                current_ticks + new_entity.getRate());
-            return tiles;
          };
 
          return action[0];
