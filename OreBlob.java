@@ -49,6 +49,22 @@ public class OreBlob extends Mover
       return new_pt;
    }
 
+   public static LongConsumer createOreTransformAction(WorldModel world, LinkedHashMap<String, List<PImage>> i_store) {
+         LongConsumer[] action = { null };
+         action[0] = (long current_ticks) -> {
+         removePendingAction(action[0]);
+
+         OreBlob blob = createBlob(world, this.get_name() + " -- blob",
+            this.getPosition(),
+            this.getRate() // actions.BLOB_RATE_SCALE,
+            current_ticks, i_store);
+
+         removeEntity(world, this);
+         world.addEntity(blob);
+
+         };
+      return action[0];
+   }
 
    public void scheduleBlob(WorldModel world, long ticks, LinkedHashMap<String, List<PImage>> i_store){
       Actions.scheduleAnimation(world, this);
