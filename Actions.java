@@ -1,4 +1,5 @@
 import java.util.function.LongConsumer;
+import static java.lang.Math.*;
 
 public class Actions
 {    
@@ -20,28 +21,25 @@ public class Actions
     
     // empty constructor
     
-    public static LongConsumer createAnimationAction(WorldModel world, Entity entity,
+    public static LongConsumer createAnimationAction(WorldModel world, AnimatedActor entity,
                                         int repeat_count)
     {
-      LongConsumer[] func = { null };
-      func[0] = (long current_ticks) -> {
-       entity.removePendingAction(action);
+      LongConsumer func = (long current_ticks) -> {
+         //entity.removePendingAction(func);
 
-       entity.nextImage();
+         entity.nextImage();
 
-       if (repeat_count != 1)
-          { 
+         if (repeat_count != 1){ 
             scheduleAction(world, entity,
                createAnimationAction(world, entity, max(repeat_count - 1, 0)),
                current_ticks + entity.getAnimationRate());
           }
-
        };
 
-      return func[0];
+      return func;
     }
     
-    
+    /*
     public static Entity tryTransformMiner(WorldModel world, Entity entity,
                                            this::transform)
     {
@@ -105,16 +103,15 @@ public class Actions
                              pt, getImages(i_store, 'vein'));
         return vein;
     }
+    */
     
-    
-    public static void scheduleAction(WorldModel world, Entity entity,
-                                      LongConsumer action, long time)
+    public static void scheduleAction(WorldModel world, AnimatedActor entity, LongConsumer action, long time)
     {
         entity.addPendingAction(action);
         world.scheduleAction(action, time);
     }
     
-    
+    /*
     public static void scheduleAnimation(WorldModel world, Entity entity, int repeat_count)
     {
         scheduleAction(world, entity,
@@ -138,5 +135,5 @@ public class Actions
         for (LongConsumer action : entity.getPendingActions())
             world.unscheduleAction(action);
         entity.clearPendingActions();
-    }
+    }*/
 }

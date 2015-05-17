@@ -306,7 +306,7 @@ public class TestCases extends PApplet{
      assertTrue(mPoint5.getX()==0 && mPoint5.getY()==0);
 
  }
-
+/*
  @Test
    public void testMinerNotFull(){
      List<PImage> imgs = new ArrayList<PImage>();
@@ -398,7 +398,7 @@ public class TestCases extends PApplet{
      MinerNotFull new_m = (MinerNotFull)old_m.tryTransformMiner(w);
      assertTrue(new_m.getName().equals("full") && new_m.getImages() == imgs && new_m.getPosition().equals(new Point(3,3)) && new_m.getResourceLimit() == 15 && new_m.getAnimationRate() == 20);     
  }
-
+*/
 
  @Test
    public void testBlacksmith(){

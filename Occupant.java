@@ -1,17 +1,30 @@
 import processing.core.*;
 import java.util.List;
+import java.util.ArrayList;
+import java.util.function.LongConsumer;
 
 public class Occupant extends GridItem{
    
+   private List<LongConsumer> pendingActions;
+   
    public Occupant(String name, List<PImage> imgs, Point position){
       super(name, imgs, position);
-      // We will need to initialize some sort of action list here.
+      pendingActions = new ArrayList<LongConsumer>();
    }
 
-   /* *
-    *
-    * We will at some point add in the necessary functions in here. 
-    * They will be responsible for actions.
-    *
-    * */
+   public void removePendingAction(LongConsumer action){
+      pendingActions.remove(action);
+   }
+   
+   public void addPendingAction(LongConsumer action){
+      pendingActions.add(action);
+   }
+   
+   public List<LongConsumer> getPendingActions(){
+      return pendingActions;
+   }
+   
+   public void clearPendingActions(){
+      pendingActions = new ArrayList<LongConsumer>();
+   }
 }
