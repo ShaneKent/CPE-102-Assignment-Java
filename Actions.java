@@ -24,8 +24,9 @@ public class Actions
     public static LongConsumer createAnimationAction(WorldModel world, AnimatedActor entity,
                                         int repeat_count)
     {
-      LongConsumer func = (long current_ticks) -> {
-         //entity.removePendingAction(func);
+      LongConsumer[] func = { null };
+      func[0] = (long current_ticks) -> {
+         entity.removePendingAction(func[0]);
 
          entity.nextImage();
 
@@ -36,7 +37,7 @@ public class Actions
           }
        };
 
-      return func;
+      return func[0];
     }
     
     /*

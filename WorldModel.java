@@ -72,7 +72,7 @@ public class WorldModel{
       if (withinBounds(pt)){
          Entity old_e = this.occupancy.getCell(pt);
          if (old_e != null){
-            //old_e.clear_pending_actions();
+            ((Occupant)old_e).clearPendingActions();
          }
          this.occupancy.setCell(pt, e);
          this.entities.add(e);
