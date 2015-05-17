@@ -29,12 +29,8 @@ public class MinerFull extends Miner{
       }
    }
 
-   public static Function<WorldModel, Entity> tryTransformMinerFull(){
-      Function<WorldModel, Entity> transform = { null };
-      transform[0] = (WorldModel world) -> {
+   public Miner tryTransformMinerFull(WorldModel world){
          Miner m = new MinerNotFull(this.getName(), this.getImages(), this.getPosition(), this.getRate(), this.getResourceLimit(), this.getAnimationRate());
          return m;
-      };
-     return transform[0];
    }
 }

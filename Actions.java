@@ -1,3 +1,5 @@
+import java.util.function.LongConsumer;
+
 public class Actions
 {    
     public static final int BLOB_RATE_SCALE = 4;
@@ -34,7 +36,6 @@ public class Actions
                current_ticks + entity.getAnimationRate());
           }
 
-        // return [entity.getPosition()];
        };
 
       return func[0];
@@ -42,7 +43,7 @@ public class Actions
     
     
     public static Entity tryTransformMiner(WorldModel world, Entity entity,
-                                           Function<WorldModel, Entity> transform)
+                                           this::transform)
     {
         Entity new_entity = transform.apply(world);
         if (entity != new_entity)
