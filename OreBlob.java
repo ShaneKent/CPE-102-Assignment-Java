@@ -50,7 +50,7 @@ public class OreBlob extends Mover
       return new_pt;
    }
 
-   public static LongConsumer createOreTransformAction(WorldModel world, LinkedHashMap<String, List<PImage>> i_store) {
+   public LongConsumer createOreTransformAction(WorldModel world, LinkedHashMap<String, List<PImage>> i_store) {
          LongConsumer[] action = { null };
          action[0] = (long current_ticks) -> {
          removePendingAction(action[0]);
@@ -58,7 +58,7 @@ public class OreBlob extends Mover
          OreBlob blob = createBlob(world, this.getName() + " -- blob",
             this.getPosition(), this.getRate(), current_ticks, i_store);
 
-         removeEntity(world, this);
+         Actions.removeEntity(world, this);
          world.addEntity(blob);
 
          };
