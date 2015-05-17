@@ -48,7 +48,7 @@ public class MinerNotFull extends Miner{
 
    public static LongConsumer createMinerAction(WorldModel world, ImageStore i_store)
      {
-         Long Consumer[] action = { null };
+         LongConsumer[] action = { null };
          action[0] = (long current_ticks) -> {
             this.removePendingAction(action);
 
