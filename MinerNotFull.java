@@ -47,7 +47,7 @@ public class MinerNotFull extends Miner{
          }  
     }
 
-   public LongConsumer createMinerAction(WorldModel world, ImageStore i_store)
+   public LongConsumer createMinerAction(WorldModel world, LinkedHashMap<String, List<PImage>> i_store)
      {
          LongConsumer[] action = { null };
          action[0] = (long current_ticks) -> {
@@ -73,6 +73,7 @@ public class MinerNotFull extends Miner{
      }
     
    public void scheduleMiner(WorldModel world, long ticks, LinkedHashMap<String, List<PImage>> i_store){
+      Actions.scheduleAction(world, this, createMinerAction(world, i_store), ticks + getRate());
       Actions.scheduleAnimation(world, this);
    }
 }

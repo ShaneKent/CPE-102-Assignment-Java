@@ -29,4 +29,20 @@ public class Vein extends Occupant{
       return "vein " + this.getName() + " " + this.getPosition().getX() + " " + this.getPosition().getY() +
          " " + this.getRate() + " " + this.getResourceDistance();
    }
+   /*
+   public LongConsumer createVeinAction(WorldModel world, LinkedHashMap<String, List<PImage>> i_store)
+     {
+         LongConsumer[] action = { null };
+         action[0] = (long current_ticks) -> {
+            removePendingAction(action[0]);
+
+            
+         };
+
+         return action[0];
+     }
+   */
+   public void scheduleVein(WorldModel world, long ticks, LinkedHashMap<String, List<PImage>> i_store){
+      Actions.scheduleAction(world, this, createVeinAction(world, i_store), ticks + getRate());
+   }
 }
