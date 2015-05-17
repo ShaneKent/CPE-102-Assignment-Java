@@ -1,6 +1,7 @@
 import processing.core.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.LongConsumer;
 
 public class WorldModel{
    private Grid background;
@@ -106,7 +107,7 @@ public class WorldModel{
       }
    }
 
-   public void scheduleAction(Object action, long time){
+   public void scheduleAction(LongConsumer action, long time){
       actionQueue.insert(action, time);
    }
    
@@ -114,16 +115,19 @@ public class WorldModel{
       actionQueue.remove(action);
    }
 
-   /*
-   public RETURN updateOnTime(long time){
-      List<Actions> tiles = new ArrayList<Actions>();
-      Object next = acitionQueue.head();
-      while (next != null && next.ord < time){
+   
+   public void /*List<LongConsumer>*/ updateOnTime(long time){
+      List<LongConsumer> tiles = new ArrayList<LongConsumer>();
+      ListItem next = actionQueue.head();
+      while (next != null && next.getOrd() < time){
          actionQueue.pop();
-         tiles.extend(next.item(ticks));
+         LongConsumer action = next.getItem();
+         //tiles.addAll(action.accept(time));
+         action.accept(time);
          next = actionQueue.head();
-      return tiles;
-   */
+      }
+      //return tiles;
+   }
 
    public PImage getBackgroundImage(Point pt){
       if (withinBounds(pt)){

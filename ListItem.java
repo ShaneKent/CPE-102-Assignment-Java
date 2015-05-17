@@ -1,14 +1,16 @@
+import java.util.function.LongConsumer;
+
 public class ListItem
 {
-   private Object item;
+   private LongConsumer item;
    private long ord; 
 
-   public ListItem(Object item, long ord){
+   public ListItem(LongConsumer item, long ord){
       this.item = item;
       this.ord = ord;
    }
 
-   public Object getItem()
+   public LongConsumer getItem()
    {
       return this.item;
    }

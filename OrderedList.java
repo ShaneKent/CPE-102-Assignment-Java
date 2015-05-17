@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.LongConsumer;
 
 public class OrderedList
 {
@@ -9,7 +10,7 @@ public class OrderedList
       this.list = new ArrayList<ListItem>();
    }
 
-   public void insert(Object item, long ord)
+   public void insert(LongConsumer item, long ord)
    {
       int size = this.list.size();
       int idx = 0;

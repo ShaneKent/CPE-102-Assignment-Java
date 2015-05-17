@@ -65,6 +65,7 @@ public class Main extends PApplet {
    public void draw(){
       long time = System.currentTimeMillis();
       if (time >= next_time){
+         world.updateOnTime(time);
          next_time = time + 100;
       }
       background(color(255, 255, 255));
