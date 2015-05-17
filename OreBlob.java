@@ -55,9 +55,7 @@ public class OreBlob extends Mover
          removePendingAction(action[0]);
 
          OreBlob blob = createBlob(world, this.get_name() + " -- blob",
-            this.getPosition(),
-            this.getRate() // actions.BLOB_RATE_SCALE,
-            current_ticks, i_store);
+            this.getPosition(), this.getRate(), current_ticks, i_store);
 
          removeEntity(world, this);
          world.addEntity(blob);
