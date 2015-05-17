@@ -1,5 +1,7 @@
 import processing.core.*;
 import java.util.List;
+import java.util.LinkedHashMap;
+import java.util.function.LongConsumer;
 
 public class MinerFull extends Miner{
    
@@ -28,6 +30,32 @@ public class MinerFull extends Miner{
          return world.moveEntity(this, new_pt);
       }
    }
+
+
+   public LongConsumer createMinerAction(WorldModel world, LinkedHashMap<String, List<PImage>> i_store)
+     {
+         LongConsumer[] action = { null };
+         action[0] = (long current_ticks) -> {
+            removePendingAction(action[0]);
+
+            Point entity_pt = this.getPosition();
+            Smith smith = (Smith) world.findNearest(entity_pt, Blacksmith.class);
+            Point[] tiles = this.minerToSmith(world, smith);
+            
+            MinerFull new_entity = this;
+            if (tiles.length == 2)
+            {
+               new_entity = (MinerNotFull) Actions.tryTransformMiner(world, this,
+                  this::tryTransformMinerNotFull);
+            } 
+
+            Actions.scheduleAction(world, new_entity,
+               new_entity.createMinerAction(world, i_store),
+               current_ticks + new_entity.getRate());
+         };
+
+         return action[0];
+     }
 
    public Miner tryTransformMinerFull(WorldModel world){
          Miner m = new MinerNotFull(this.getName(), this.getImages(), this.getPosition(), this.getRate(), this.getResourceLimit(), this.getAnimationRate());
