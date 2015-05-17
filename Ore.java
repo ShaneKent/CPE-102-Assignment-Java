@@ -1,5 +1,6 @@
 import processing.core.*;
 import java.util.List;
+import java.util.LinkedHashMap;
 
 public class Ore extends Occupant{
 
@@ -21,6 +22,10 @@ public class Ore extends Occupant{
 
    public String entityString(){
       return "ore " + this.getName() + " " + this.getPosition().getX() + " " + this.getPosition().getY() + " " + this.getRate();
+   }
+
+   public void scheduleOre(WorldModel world, long ticks, LinkedHashMap<String, List<PImage>> i_store){
+      Actions.scheduleAnimation(world, this);
    }
 }
 

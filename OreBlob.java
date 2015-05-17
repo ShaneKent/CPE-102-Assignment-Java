@@ -1,5 +1,6 @@
 import processing.core.*;
 import java.util.List;
+import java.util.LinkedHashMap;
 
 public class OreBlob extends Mover
 {
@@ -47,5 +48,11 @@ public class OreBlob extends Mover
 
       return new_pt;
    }
+
+
+   public void scheduleOreBlob(WorldModel world, long ticks, LinkedHashMap<String, List<PImage>> i_store){
+      Actions.scheduleAnimation(world, this);
+   }
+
 }
 
