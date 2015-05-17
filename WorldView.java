@@ -58,8 +58,8 @@ public class WorldView {
     }
 
    public void updateView(int[] view_delta) {
-      viewport = createShiftedViewport(viewport, view_delta, num_rows, num_cols);
-      drawViewport();
+      this.viewport = createShiftedViewport(viewport, view_delta, num_rows, num_cols);
+      drawViewport();;
       //pygame.display.update();
    }
    
@@ -67,7 +67,7 @@ public class WorldView {
       int[] view_delta = new int[2];
       view_delta[0] = 0;
       view_delta[1] = 0;
-      viewport = createShiftedViewport(viewport, view_delta, num_rows, num_cols);
+      this.viewport = createShiftedViewport(viewport, view_delta, num_rows, num_cols);
       drawViewport();
    }
 
@@ -165,7 +165,7 @@ public class WorldView {
    public static Rectangle createShiftedViewport(Rectangle viewport, int[] delta, int num_rows, int num_cols) {
       int new_x = clamp(viewport.getLeft() + delta[0], 0, num_cols - viewport.getWidth());
       int new_y = clamp(viewport.getTop() + delta[1], 0, num_rows - viewport.getHeight());
-
+      //System.out.println((viewport.getLeft() + delta[0]) + " " + (viewport.getTop() + delta[1]));
       return new Rectangle(new_x, new_y, viewport.getWidth(), viewport.getHeight());
     }
 

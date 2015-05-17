@@ -1,12 +1,16 @@
+import java.io.*;
+import java.util.Scanner;
+
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Map;
+
 import java.util.LinkedHashMap;
+
 import processing.core.*;
 import processing.event.KeyEvent;
 
 public class Main extends PApplet {
-   final boolean RUN_AFTER_LOAD = true;
+   final static boolean RUN_AFTER_LOAD = true;
 
    final String IMAGE_LIST_FILE_NAME = "imagelist";
    final String WORLD_FILE = "gaia.sav";
@@ -29,7 +33,13 @@ public class Main extends PApplet {
    }   
 
    public static void loadWorld(WorldModel world, LinkedHashMap<String, List<PImage>> i_store, String filename){
-
+      try{
+         Scanner in = new Scanner(new FileInputStream(filename));
+         Load.loadWorld(world, i_store, in, RUN_AFTER_LOAD);
+      }
+      catch (FileNotFoundException e){
+         System.err.println(e.getMessage());
+      }
    }
 
    public void setup(){
@@ -37,25 +47,14 @@ public class Main extends PApplet {
       background(color(255, 255, 255));
 
       i_store = ImageStore.loadImages(this, IMAGE_LIST_FILE_NAME, TILE_WIDTH, TILE_HEIGHT);
-     
-      //Uncomment this to see that the images are loading properly.
-      //for (String key : i_store.keySet()){
-      //   System.out.println(key + " " + i_store.get(key) + "\n");
-      //}
 
       int num_cols = SCREEN_WIDTH / (TILE_WIDTH); //* WORLD_WIDTH_SCALE);
       int num_rows = SCREEN_HEIGHT / (TILE_HEIGHT);// * WORLD_HEIGHT_SCALE);
       Background defaultBackground = createDefaultBackground(ImageStore.getImages(i_store, ImageStore.DEFAULT_IMAGE_NAME));
-      System.out.println(defaultBackground.getImages());
 
       world = new WorldModel(num_rows, num_cols, defaultBackground);
       view = new WorldView(this, SCREEN_WIDTH/TILE_WIDTH, SCREEN_HEIGHT/TILE_HEIGHT, world, TILE_WIDTH, TILE_HEIGHT);
       loadWorld(world, i_store, WORLD_FILE);
-      
-      List<PImage> ore_image = new ArrayList<PImage>();
-      ore_image.add(loadImage("images/ore.bmp"));
-      Ore ore = new Ore("ore", ore_image, new Point(0, 0));
-      world.addEntity(ore);
 
       view.updateView();
       //Controller.activityLoop(view, world);
@@ -68,8 +67,8 @@ public class Main extends PApplet {
       if (time >= next_time){
          next_time = time + 100;
       }
-      background(color(255, 255, 255));
-      view.updateView();
+      //background(color(255, 255, 255));
+      //view.updateView();
    }
    
    public void keyPressed(KeyEvent e){
