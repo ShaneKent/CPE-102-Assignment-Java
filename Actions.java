@@ -1,4 +1,5 @@
 import java.util.function.LongConsumer;
+import java.util.function.Function;
 import static java.lang.Math.*;
 
 public class Actions
@@ -40,11 +41,11 @@ public class Actions
       return func[0];
     }
     
-    /*
-    public static Entity tryTransformMiner(WorldModel world, Entity entity,
-                                           this::transform)
+    
+    public static Entity tryTransformMiner(WorldModel world, Miner entity,
+                                           Function<WorldModel, Miner> transform)
     {
-        Entity new_entity = transform.apply(world);
+        Miner new_entity = transform.apply(world);
         if (entity != new_entity)
         {
             clearPendingActions(world, entity);
@@ -55,7 +56,7 @@ public class Actions
         return new_entity;
     }
     
-    
+    /*
     public static void removeEntity(WorldModel world, Entity entity)
     {
         for (LongConsumer action : entity.getPendingActions())
@@ -134,13 +135,13 @@ public class Actions
       createAnimationAction(world, entity, repeat_count),
       entity.getAnimationRate());
     }
-
+   */
     
     
-    public static void clearPendingActions(WorldModel world, Entity entity)
+    public static void clearPendingActions(WorldModel world, Occupant entity)
     {
         for (LongConsumer action : entity.getPendingActions())
             world.unscheduleAction(action);
         entity.clearPendingActions();
-    }*/
+    }
 }

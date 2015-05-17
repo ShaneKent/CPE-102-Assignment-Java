@@ -21,7 +21,7 @@ public class OrderedList
       this.list.add(idx, new ListItem(item, ord));
    }
 
-   public void remove(ListItem item)
+   public void remove(LongConsumer item)
    {
       int size = this.list.size();
       int idx = 0;

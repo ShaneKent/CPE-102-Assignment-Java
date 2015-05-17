@@ -111,7 +111,7 @@ public class WorldModel{
       actionQueue.insert(action, time);
    }
    
-   public void unscheduleAction(ListItem action){
+   public void unscheduleAction(LongConsumer action){
       actionQueue.remove(action);
    }
 
