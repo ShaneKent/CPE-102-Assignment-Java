@@ -1,6 +1,10 @@
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.function.LongConsumer;
 import java.util.function.Function;
+import java.util.Random;
 import static java.lang.Math.*;
+import processing.core.*;
 
 public class Actions
 {    
@@ -42,7 +46,7 @@ public class Actions
     }
     
     
-    public static Entity tryTransformMiner(WorldModel world, Miner entity,
+    public static Miner tryTransformMiner(WorldModel world, Miner entity,
                                            Function<WorldModel, Miner> transform)
     {
         Miner new_entity = transform.apply(world);
@@ -56,8 +60,7 @@ public class Actions
         return new_entity;
     }
     
-    /*
-    public static void removeEntity(WorldModel world, Entity entity)
+    public static void removeEntity(WorldModel world, Occupant entity)
     {
         for (LongConsumer action : entity.getPendingActions())
             world.unscheduleAction(action);
@@ -66,46 +69,46 @@ public class Actions
     }
     
     public static OreBlob createBlob(WorldModel world, String name, Point pt,
-                                     int rate, long ticks, ImageStore i_store)
+                                     int rate, long ticks, LinkedHashMap<String, List<PImage>> i_store)
     {
-        OreBlob blob = new OreBlob(name, pt, rate,
-                                   getImages(i_store, 'blob'),
-                                   randint(BLOB_ANIMATION_MIN, BLOB_ANIMATION_MAX)
-                                   * BLOB_ANIMATION_RATE_SCALE);
+        Random r = new Random();
+        int randNum = r.nextInt((BLOB_ANIMATION_MAX - BLOB_ANIMATION_MIN) + 1) + BLOB_ANIMATION_MIN;
+        OreBlob blob = new OreBlob(name, ImageStore.getImages(i_store, "blob"), pt, rate,
+                                   randNum * BLOB_ANIMATION_RATE_SCALE);
         blob.scheduleBlob(world, ticks, i_store);
         return blob;
     }
     
     
     public static Ore createOre(WorldModel world, String name, Point pt,
-                                long ticks, ImageStore i_store)
+                                long ticks, LinkedHashMap<String, List<PImage>> i_store)
     {
-        Ore ore = new Ore(name, pt, getImages(i_store, 'ore'),
-                          randint(ORE_CORRUPT_MIN, ORE_CORRUPT_MAX));
+        Random r = new Random();
+        int randNum = r.nextInt((ORE_CORRUPT_MAX - ORE_CORRUPT_MIN) + 1) + ORE_CORRUPT_MIN;
+        Ore ore = new Ore(name, ImageStore.getImages(i_store, "ore"), pt, randNum);
         ore.scheduleOre(world, ticks, i_store);
         
         return ore;
     }
     
     
-    public static Quake createQuake(WorldModel world, Point pt, long ticks, ImageStore i_store)
+    public static Quake createQuake(WorldModel world, Point pt, long ticks, LinkedHashMap<String, List<PImage>> i_store)
     {
-        Quake quake = new Quake("quake", pt,
-                                getImages(i_store, 'quake'), QUAKE_ANIMATION_RATE);
+        Quake quake = new Quake("quake",
+                                ImageStore.getImages(i_store, "quake"), pt, QUAKE_ANIMATION_RATE);
         quake.scheduleQuake(world, ticks);
         return quake;
     }
     
     
-    public static Vein createVein(WorldModel world, String name, Point pt,
-                                  long ticks, ImageStore i_store)
+    public static Vein createVein(WorldModel world, String name, Point pt, long ticks, LinkedHashMap<String, List<PImage>> i_store)
     {
-        Vein vein = new Vein("vein" + name,
-                             randint(VEIN_RATE_MIN, VEIN_RATE_MAX),
-                             pt, getImages(i_store, 'vein'));
+        Random r = new Random();
+        int randNum = r.nextInt((VEIN_RATE_MAX - VEIN_RATE_MIN) + 1) + VEIN_RATE_MIN;
+        Vein vein = new Vein("vein" + name, ImageStore.getImages(i_store, "vein"), pt, randNum);
         return vein;
     }
-    */
+    
     
     public static void scheduleAction(WorldModel world, Occupant entity, LongConsumer action, long time)
     {
@@ -126,17 +129,6 @@ public class Actions
                         createAnimationAction(world, entity, 0),
                         entity.getAnimationRate());
    }
-
-    /*  
-    public static void scheduleAnimation(WorldModel world, Entity entity)
-    {
-      int repeat_count = 0;
-      scheduleAction(world, entity,
-      createAnimationAction(world, entity, repeat_count),
-      entity.getAnimationRate());
-    }
-   */
-    
     
     public static void clearPendingActions(WorldModel world, Occupant entity)
     {

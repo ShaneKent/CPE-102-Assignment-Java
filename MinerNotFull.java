@@ -25,7 +25,7 @@ public class MinerNotFull extends Miner{
       Point o_pt = ore.getPosition();
       if (e_pt.adjacent(o_pt)){
          this.setResourceCount(1 + this.getResourceCount());
-         //actions.remove_entity(world, ore);
+         Actions.removeEntity(world, ore);
          pt[0] = o_pt;
          return pt;
       }else{
@@ -47,24 +47,24 @@ public class MinerNotFull extends Miner{
          }  
     }
 
-   public static LongConsumer createMinerAction(WorldModel world, ImageStore i_store)
+   public LongConsumer createMinerAction(WorldModel world, ImageStore i_store)
      {
          LongConsumer[] action = { null };
          action[0] = (long current_ticks) -> {
-            this.removePendingAction(action);
+            removePendingAction(action[0]);
 
             Point entity_pt = this.getPosition();
-            Ore ore = world.findNearest(entity_pt, Ore);
+            Ore ore = (Ore) world.findNearest(entity_pt, Ore.class);
             Point[] tiles = this.minerToOre(world, ore);
             
-            Entity new_entity = this;
+            MinerNotFull new_entity = this;
             if (tiles.length == 2)
             {
-               new_entity = actions.tryTransformMiner(world, this,
-                  this.tryTransformMiner);
+               new_entity = (MinerNotFull) Actions.tryTransformMiner(world, this,
+                  this::tryTransformMinerNotFull);
             } 
 
-            actions.scheduleAction(world, new_entity,
+            Actions.scheduleAction(world, new_entity,
                new_entity.createMinerAction(world, i_store),
                current_ticks + new_entity.getRate());
          };

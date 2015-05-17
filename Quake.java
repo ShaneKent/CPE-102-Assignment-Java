@@ -8,7 +8,7 @@ public class Quake extends AnimatedActor
       super(name, imgs, position, animation_rate);
    }
 
-   public void scheduleQuake(WorldModel world, long ticks, LinkedHashMap<String, List<PImage>> i_store) {
+   public void scheduleQuake(WorldModel world, long ticks) {
       Actions.scheduleAnimation(world, this);
    }
 }
