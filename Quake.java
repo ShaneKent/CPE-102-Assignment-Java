@@ -21,7 +21,7 @@ public class Quake extends AnimatedActor
    }
 
    public void scheduleQuake(WorldModel world, long ticks) {
-      Actions.scheduleAnimation(world, this);
+      Actions.scheduleAnimation(world, this, Actions.QUAKE_STEPS);
       Actions.scheduleAction(world, this, createDeathAction(world), ticks + Actions.QUAKE_DURATION);
    }
 }

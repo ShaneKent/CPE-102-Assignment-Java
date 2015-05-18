@@ -5,6 +5,8 @@ import java.util.function.LongConsumer;
 
 public class MinerFull extends Miner{
    
+   private boolean truth = false;
+   
    public MinerFull(String name, List<PImage> imgs, Point position, int rate, int resource_limit, int animation_rate){
        super(name, imgs, position, rate, resource_limit, animation_rate, resource_limit);
 
@@ -16,6 +18,7 @@ public class MinerFull extends Miner{
       
       if (smith == null){
          pt[0] = e_pt;
+         truth = false;
          return pt;
       }
 
@@ -23,10 +26,12 @@ public class MinerFull extends Miner{
       if (e_pt.adjacent(s_pt)){
          smith.setResourceCount(smith.getResourceCount() + this.getResourceCount());
          this.setResourceCount(0);
+         truth = true;
          return pt;
       }
       else{
          Point new_pt = this.nextPosition(world, s_pt);
+         truth = false;
          return world.moveEntity(this, new_pt);
       }
    }
@@ -43,7 +48,7 @@ public class MinerFull extends Miner{
             Point[] tiles = this.minerToSmith(world, smith);
             
             Miner new_entity = this;
-            if (tiles.length == 2)
+            if (truth)//tiles.length == 2)
             {
                new_entity = (Miner) Actions.tryTransformMiner(world, this,
                   this::tryTransformMinerFull);

@@ -18,8 +18,8 @@ public class Main extends PApplet {
    final int WORLD_WIDTH_SCALE = 2;
    final int WORLD_HEIGHT_SCALE = 2;
    
-   final int SCREEN_WIDTH = 640;
-   final int SCREEN_HEIGHT = 480;
+   final int SCREEN_WIDTH = 1280;//640;
+   final int SCREEN_HEIGHT = 960;//480;
    final int TILE_WIDTH = 32;
    final int TILE_HEIGHT = 32;
 
@@ -59,7 +59,7 @@ public class Main extends PApplet {
       view.updateView();
       //Controller.activityLoop(view, world);
    
-      next_time = 0;
+      next_time = System.currentTimeMillis();
    }
 
    public void draw(){

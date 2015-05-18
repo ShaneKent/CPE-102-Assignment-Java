@@ -5,15 +5,19 @@ import java.util.function.LongConsumer;
 
 public class OreBlob extends Mover
 {
+
+   private boolean truth = false;
+   
    public OreBlob(String name, List<PImage> imgs, Point position, int rate, int animation_rate){
       super(name, imgs, position, rate, animation_rate);
    }
-
+   
    public Point[] blobToVein(WorldModel world, Vein v){
       Point e_pt = getPosition();
       Point [] pt = new Point[1];
       if (v == null){
          pt[0] = e_pt;
+         truth = false;
          return pt;
       }
 
@@ -21,6 +25,7 @@ public class OreBlob extends Mover
       if (e_pt.adjacent(v_pt)){
          Actions.removeEntity(world, v);
          pt[0] = v_pt;
+         truth = true;
          return pt;
       }
       else{
@@ -29,6 +34,7 @@ public class OreBlob extends Mover
          if (old_e instanceof Ore){
             Actions.removeEntity(world, old_e);
          }
+         truth = false;
          return world.moveEntity(this, new_p);
       }
    }
@@ -60,7 +66,7 @@ public class OreBlob extends Mover
          Point[] tiles = blobToVein(world, vein);
          long next_time = current_ticks + getRate();
          
-         if (tiles.length == 2){
+         if (truth){//tiles.length == 2){
             Quake quake = Actions.createQuake(world, tiles[0], current_ticks, i_store);
             world.addEntity(quake);
             next_time = current_ticks + getRate() * 2;
