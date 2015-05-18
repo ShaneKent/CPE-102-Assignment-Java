@@ -14,7 +14,6 @@ public class Quake extends AnimatedActor
       action[0] = (long current_ticks) -> {
          removePendingAction(action[0]);
          
-         Point pt = getPosition();
          Actions.removeEntity(world, this);
       };
       return action[0];
