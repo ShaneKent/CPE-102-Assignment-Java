@@ -180,11 +180,11 @@ public class Load{
    public static void scheduleEntity(WorldModel world, Entity entity, LinkedHashMap<String, List<PImage>> i_store){
       if (entity instanceof MinerNotFull){
          ((MinerNotFull)entity).scheduleMiner(world, 0, i_store);
-      }/*else if (entity instanceof Vein){
+      }else if (entity instanceof Vein){
          ((Vein)entity).scheduleVein(world, 0, i_store);
       }else if (entity instanceof Ore){
          ((Ore)entity).scheduleOre(world, 0, i_store);
-      }*/
+      }
    }
       
    

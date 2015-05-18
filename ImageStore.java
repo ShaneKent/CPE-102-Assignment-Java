@@ -60,7 +60,6 @@ public class ImageStore{
             imgs.add(img);
             images.put(key, imgs);
             
-            //if to set up the colors.
             if (attrs.length == 6){
                int r = Integer.parseInt(attrs[2]);
                int g = Integer.parseInt(attrs[3]);

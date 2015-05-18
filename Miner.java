@@ -1,7 +1,9 @@
 import java.util.List;
 import processing.core.*;
+import java.util.function.LongConsumer;
+import java.util.LinkedHashMap;
 
-public class Miner extends Mover 
+public abstract class Miner extends Mover 
 {
    private int resource_limit;
    private int resource_count;
@@ -43,4 +45,7 @@ public class Miner extends Mover
 
       return new_pt;
    }
+   
+   protected abstract LongConsumer createMinerAction(WorldModel world, LinkedHashMap<String, List<PImage>> i_store);
+
 }

@@ -255,7 +255,7 @@ public class TestCases extends PApplet{
      assertTrue(o.blobNextPosition(w, new Point(3, 3)).equals(new Point(2, 0)));      
  }
 
-
+/*
  @Test
   public void testMiner(){
      List<PImage> imgs = new ArrayList<PImage>();
@@ -306,7 +306,7 @@ public class TestCases extends PApplet{
      assertTrue(mPoint5.getX()==0 && mPoint5.getY()==0);
 
  }
-/*
+
  @Test
    public void testMinerNotFull(){
      List<PImage> imgs = new ArrayList<PImage>();
@@ -437,7 +437,7 @@ public class TestCases extends PApplet{
      b1.nextImage();
      assertTrue(loadImage("images/miner2.bmp") == b1.getImage());
  }
-
+/*
  @Test
    public void testWorldModel(){
      List<PImage> imgs = new ArrayList<PImage>();
@@ -518,4 +518,4 @@ public class TestCases extends PApplet{
      assertTrue(open_pt.equals(w.findOpenAround(p3, 1)));
 
   }
-}
+*/}

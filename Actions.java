@@ -23,9 +23,7 @@ public class Actions
     public static final int VEIN_SPAWN_DELAY = 500;
     public static final int VEIN_RATE_MIN = 8000;
     public static final int VEIN_RATE_MAX = 17000;
-    
-    // empty constructor
-    
+        
     public static LongConsumer createAnimationAction(WorldModel world, AnimatedActor entity,
                                         int repeat_count)
     {

@@ -57,10 +57,10 @@ public class MinerNotFull extends Miner{
             Ore ore = (Ore) world.findNearest(entity_pt, Ore.class);
             Point[] tiles = this.minerToOre(world, ore);
             
-            MinerNotFull new_entity = this;
+            Miner new_entity = this;
             if (tiles.length == 2)
             {
-               new_entity = (MinerNotFull) Actions.tryTransformMiner(world, this,
+               new_entity = (Miner) Actions.tryTransformMiner(world, this,
                   this::tryTransformMinerNotFull);
             } 
 

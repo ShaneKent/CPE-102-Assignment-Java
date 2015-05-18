@@ -116,17 +116,15 @@ public class WorldModel{
    }
 
    
-   public void /*List<LongConsumer>*/ updateOnTime(long time){
+   public void updateOnTime(long time){
       List<LongConsumer> tiles = new ArrayList<LongConsumer>();
       ListItem next = actionQueue.head();
       while (next != null && next.getOrd() < time){
          actionQueue.pop();
          LongConsumer action = next.getItem();
-         //tiles.addAll(action.accept(time));
          action.accept(time);
          next = actionQueue.head();
       }
-      //return tiles;
    }
 
    public PImage getBackgroundImage(Point pt){

@@ -42,10 +42,10 @@ public class MinerFull extends Miner{
             Blacksmith smith = (Blacksmith) world.findNearest(entity_pt, Blacksmith.class);
             Point[] tiles = this.minerToSmith(world, smith);
             
-            MinerFull new_entity = this;
+            Miner new_entity = this;
             if (tiles.length == 2)
             {
-               new_entity = (MinerFull) Actions.tryTransformMiner(world, this,
+               new_entity = (Miner) Actions.tryTransformMiner(world, this,
                   this::tryTransformMinerFull);
             } 
 
