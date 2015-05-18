@@ -19,15 +19,15 @@ public class OreBlob extends Mover
 
       Point v_pt = v.getPosition();
       if (e_pt.adjacent(v_pt)){
-         //actions.remove_entity(world, vein);
+         Actions.removeEntity(world, v);
          pt[0] = v_pt;
          return pt;
       }
       else{
          Point new_p = blobNextPosition(world, v_pt);
-         Entity old_e = world.getTileOccupant(new_p);
+         Occupant old_e = (Occupant) world.getTileOccupant(new_p);
          if (old_e instanceof Ore){
-            //actions.remove_entity(world, old_e);
+            Actions.removeEntity(world, old_e);
          }
          return world.moveEntity(this, new_p);
       }
@@ -50,22 +50,30 @@ public class OreBlob extends Mover
       return new_pt;
    }
 
-   public LongConsumer createOreTransformAction(WorldModel world, LinkedHashMap<String, List<PImage>> i_store) {
-         LongConsumer[] action = { null };
-         action[0] = (long current_ticks) -> {
+   public LongConsumer createOreBlobAction(WorldModel world, LinkedHashMap<String, List<PImage>> i_store){
+      LongConsumer[] action = { null };
+      action[0] = (long current_ticks) -> {
          removePendingAction(action[0]);
-
-         OreBlob blob = Actions.createBlob(world, this.getName() + " -- blob",
-            this.getPosition(), this.getRate(), current_ticks, i_store);
-
-         Actions.removeEntity(world, this);
-         world.addEntity(blob);
-
-         };
+         
+         Point entity_pt = getPosition();
+         Vein vein = (Vein) world.findNearest(entity_pt, Vein.class);
+         Point[] tiles = blobToVein(world, vein);
+         long next_time = current_ticks + getRate();
+         
+         if (tiles.length == 2){
+            Quake quake = Actions.createQuake(world, tiles[0], current_ticks, i_store);
+            world.addEntity(quake);
+            next_time = current_ticks + getRate() * 2;
+         }
+         
+         Actions.scheduleAction(world, this, createOreBlobAction(world, i_store), next_time);
+      };
       return action[0];
    }
 
    public void scheduleBlob(WorldModel world, long ticks, LinkedHashMap<String, List<PImage>> i_store){
+      Actions.scheduleAction(world, this, createOreBlobAction(world, i_store),
+                              ticks + getRate());
       Actions.scheduleAnimation(world, this);
    }
 

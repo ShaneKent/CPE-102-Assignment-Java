@@ -2,15 +2,6 @@ import processing.core.*;
 import static java.lang.Math.*;
 
 public class WorldView {
-   
-   //MOST IF NOT ALL FUNCTIONS IN HERE SHOULD ALREADY BE COMPLETED.
-   //IGNORE ALL THE MOUSE OVER FUNCTIONS.
-   //WILL FIX THE updateViewTile FUNCTION AFTER TALKING WITH KEEN.
-
-   //These don't need to be added, we are not supposed to do the mouse over functions.
-   //public static final MOUSE_HOVER_ALPHA = 120;
-   //public static final MOUSE_HOVER_EMPTY_COLOR = new Color(0, 255, 0);
-   //public static final MOUSE_HOVER_OCC_COLOR = new Color(255, 0, 0);
 
    private Rectangle viewport;
    private WorldModel world;
@@ -61,7 +52,6 @@ public class WorldView {
    public void updateView(int[] view_delta) {
       this.viewport = createShiftedViewport(viewport, view_delta, num_rows, num_cols);
       drawViewport();;
-      //pygame.display.update();
    }
    
    public void updateView(){
@@ -73,7 +63,7 @@ public class WorldView {
    }
 
    /*
-    * Need to create the updateOnTime function inside the WorldModel class.
+   //Need to create the updateOnTime function inside the WorldModel class.
    //NOT CORRECTED
    public void updateViewTiles(tiles) {
       List<Rectangle> rects = new ArrayList<Rectangle>();
@@ -89,8 +79,7 @@ public class WorldView {
           }
        }
       pygame.display.update(rects);
-   }
-   */
+   }*/
    
    public Rectangle updateTile(Point view_tile_pt, PImage surface) {
       int abs_x = view_tile_pt.getX() * tile_width;

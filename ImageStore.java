@@ -12,7 +12,7 @@ import processing.core.*;
 public class ImageStore{
    
    public static String DEFAULT_IMAGE_NAME = "background_default";
-   public static Color DEFAULT_IMAGE_COLOR = new Color(128, 128, 128, 0);
+   public static int[] DEFAULT_IMAGE_COLOR = {128, 128, 128, 0};
 
    private static final int COLOR_MASK = 0xffffff;
 
@@ -20,7 +20,7 @@ public class ImageStore{
       PImage img = applet.createImage(tile_width, tile_height, PImage.RGB);
       img.loadPixels();
       for (int i = 0; i < img.pixels.length; i++){
-         img.pixels[i] = applet.color(DEFAULT_IMAGE_COLOR.getRed(), DEFAULT_IMAGE_COLOR.getBlue(), DEFAULT_IMAGE_COLOR.getGreen(), DEFAULT_IMAGE_COLOR.getAlpha());
+         img.pixels[i] = applet.color(DEFAULT_IMAGE_COLOR[0], DEFAULT_IMAGE_COLOR[1], DEFAULT_IMAGE_COLOR[2], DEFAULT_IMAGE_COLOR[3]);
       }
       return img;
    }  
