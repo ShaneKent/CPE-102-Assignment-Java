@@ -31,46 +31,46 @@ public class Mover extends AnimatedActor
       NodeGrid closedset = new NodeGrid(world, world.getNumCols(), world.getNumRows());
       OpenSet openset = new OpenSet();
       LinkedList<Node> came_from = new LinkedList<Node>();
-
-      Map<Node, Integer> g_score = new HashMap<Node, Integer>();
-      Map<Node, Integer> f_score = new HashMap<Node, Integer>();
             
       Node start_node = new Node(start_pt);
       Node end_node = new Node(end_pt);
-
-      g_score.put(start_node, 0);
-      f_score.put(start_node, g_score.get(start_node) + h_cost(start_node, end_node));
       
-      openset.insert(start_node, f_score.get(start_node));
+      start_node.g = 0;
+      start_node.f = start_node.g + h_cost(start_node, end_node);
+      
+      openset.insert(start_node, start_node.f);
       closedset.setNode(start_node.pt, start_node);
-      
+      closedset.setNode(end_node.pt, end_node);
+            
       while (openset.size() != 0){
          
          Node current = openset.head().getNode();
-                  
+         
          if (current.equals(end_node)){
             System.out.println("Return");
             return reconstruct(came_from, end_node);
          }
 
          openset.remove(current);
-         closedset.setNode(current.pt, current);
          current.marked = true;
+         closedset.setNode(current.pt, current);
                   
          for (Node neighbor : closedset.getNeighbors(cl, current)){
             if (closedset.getNode(neighbor.pt).marked){
                continue;
             }
-            int tentativeG = g_score.get(current) + 1;
-            System.out.println(neighbor.pt.getX() + " " + neighbor.pt.getY());
-            
-            if (!openset.hasNode(neighbor) || tentativeG < g_score.get(neighbor)){
+               
+            int tentativeG = current.g + 1;
+
+            if (!openset.hasNode(neighbor) || tentativeG < neighbor.g){
+               
                neighbor.came_from = current;
                came_from.add(0, neighbor);
-               g_score.put(neighbor, tentativeG);
-               f_score.put(neighbor, tentativeG + h_cost(neighbor, end_node));
+               neighbor.g = current.g + 1;
+               neighbor.f = neighbor.g + h_cost(neighbor, end_node);
+                              
                if (!openset.hasNode(neighbor)){
-                  openset.insert(neighbor, f_score.get(neighbor));
+                  openset.insert(neighbor, neighbor.f);
                }
             }
          }
@@ -80,7 +80,6 @@ public class Mover extends AnimatedActor
    
    public List<Node> reconstruct(LinkedList<Node> came_from, Node current){
       List<Node> total = new ArrayList<Node>();
-      //total.add(current);
       
       while (came_from.contains(current)){
          Node pulled = came_from.pollLast().came_from;
@@ -89,7 +88,7 @@ public class Mover extends AnimatedActor
             System.out.println(pulled.pt.getX() + " " + pulled.pt.getY());
          }
       }
-      //System.out.println(total.size());
+
       return total;
    }
 }

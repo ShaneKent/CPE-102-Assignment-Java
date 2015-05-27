@@ -1,14 +1,14 @@
 public class Node{
    public Point pt;
    public boolean marked = false;
-   public int f;
-   public int g;
+   public int f = 0;
+   public int g = 0;
    public Node came_from = null;
    
    public Node(Point pt){
       this.pt = new Point(pt.getX(), pt.getY());
    }
-   
+
    public boolean equals(Object node){
       if (this == node){
          return true;

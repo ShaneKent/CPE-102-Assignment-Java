@@ -9,7 +9,7 @@ public class OpenSet
    public OpenSet(){
       this.list = new ArrayList<OpenSetItem>();
    }
-
+   
    public void insert(Node node, int f_value)
    {
       int size = this.list.size();
