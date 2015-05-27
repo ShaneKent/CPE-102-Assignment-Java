@@ -41,35 +41,42 @@ public class NodeGrid{
    public List<Node> getNeighbors(Class cl, Node current){
       List<Node> returned_nodes = new ArrayList<Node>();
 
-      Point left = new Point(current.pt.getX() - 1, current.pt.getY());
       Point right = new Point(current.pt.getX() + 1, current.pt.getY());
       Point up = new Point(current.pt.getX(), current.pt.getY() - 1);
+      Point left = new Point(current.pt.getX() - 1, current.pt.getY());
       Point down = new Point(current.pt.getX(), current.pt.getY() + 1);
       
-      if (current.pt.getX() - 1 >= 0 && (!this.world.isOccupied(left) || this.world.getTileOccupant(left).getClass() == cl)){
-         //if (!nodes[left.getX()][left.getY()].marked){
-            returned_nodes.add(getNode(left));
+if (current.pt.getY() + 1 < this.world.getNumRows() && (!this.world.isOccupied(down) || this.world.getTileOccupant(down).getClass() == cl)){
+         //if (!nodes[down.getX()][down.getY()].marked){
+            returned_nodes.add(getNode(down));
          //}
-         //System.out.println("Left" + left.getX() + " " + left.getY());
+         //System.out.println("Down" + down.getX() + " " + left.getY());
       }
-      if (current.pt.getX() + 1 < this.world.getNumCols() && (!this.world.isOccupied(right) || this.world.getTileOccupant(right).getClass() == cl)){
+
+
+  if (current.pt.getX() + 1 < this.world.getNumCols() && (!this.world.isOccupied(right) || this.world.getTileOccupant(right).getClass() == cl)){
          //if (!nodes[right.getX()][right.getY()].marked){
             returned_nodes.add(getNode(right));
          //}
          //System.out.println("Right" + right.getX() + " " + left.getY());
       }
+
+    
       if (current.pt.getY() - 1 >= 0 && (!this.world.isOccupied(up) || this.world.getTileOccupant(up).getClass() == cl)){
          //if (!nodes[up.getX()][up.getY()].marked){
             returned_nodes.add(getNode(up));
          //}
          //System.out.println("Up" + up.getX() + " " + left.getY());
       }
-      if (current.pt.getY() + 1 < this.world.getNumRows() && (!this.world.isOccupied(down) || this.world.getTileOccupant(down).getClass() == cl)){
-         //if (!nodes[down.getX()][down.getY()].marked){
-            returned_nodes.add(getNode(down));
+
+      if (current.pt.getX() - 1 >= 0 && (!this.world.isOccupied(left) || this.world.getTileOccupant(left).getClass() == cl)){
+         //if (!nodes[left.getX()][left.getY()].marked){
+            returned_nodes.add(getNode(left));
          //}
-         //System.out.println("Down" + down.getX() + " " + left.getY());
+         //System.out.println("Left" + left.getX() + " " + left.getY());
       }
+
+      
       return returned_nodes;
    }
 }
