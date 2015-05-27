@@ -30,7 +30,7 @@ public class Mover extends AnimatedActor
    public Point AStar(WorldModel world, Class cl, Point start_pt, Point end_pt){
       NodeGrid closedset = new NodeGrid(world, world.getNumCols(), world.getNumRows());
       OpenSet openset = new OpenSet();
-      List<Node> came_from = new LinkedList<Node>();
+      LinkedList<Node> came_from = new LinkedList<Node>();
 
       Map<Node, Integer> g_score = new HashMap<Node, Integer>();
       Map<Node, Integer> f_score = new HashMap<Node, Integer>();
@@ -46,18 +46,18 @@ public class Mover extends AnimatedActor
       
       while (openset.size() != 0){
          Node current = openset.head().getNode();
-         
-         if (current.pt == end_node.pt){
-            System.out.println("RETURN NEEDED");
+                  
+         if (current.pt.getX() == end_node.pt.getX() && current.pt.getY() == end_node.pt.getY()){
+            return reconstruct(came_from, end_node);
          }
 
          openset.remove(current);
          closedset.setNode(current.pt, current);
          current.marked = true;
-         
+                  
          for (Node neighbor : closedset.getNeighbors(cl, current)){
             if (neighbor.marked){
-               break;
+               continue;
             }
             int tentativeG = g_score.get(current) + 1;
             if (!openset.hasNode(neighbor) || tentativeG < g_score.get(neighbor)){
@@ -70,6 +70,20 @@ public class Mover extends AnimatedActor
             }
          }
       }
-      return new Point(1, 1);
+      return start_node.pt;
+   }
+   
+   public Point reconstruct(LinkedList<Node> came_from, Node current){
+      List<Node> total = new ArrayList<Node>();
+      //System.out.println(came_from.size());
+      //System.out.println(came_from.get(0).pt.getX() + " " + came_from.get(0).pt.getY());
+      //total.add(current);
+      
+      //while (came_from.contains(current)){
+      //   total.add(came_from.pollFirst());
+      //}
+      //return came_from.get(0).pt;
+      
+      return came_from.getLast().pt;
    }
 }
