@@ -30,7 +30,9 @@ public abstract class Miner extends Mover
 
    public Point nextPosition(WorldModel world, Point dest_pt){
       Point start_pt = this.getPosition();
-      return AStar(world, world.getTileOccupant(dest_pt).getClass(), start_pt, dest_pt);
+      List<Node> path = AStar(world, world.getTileOccupant(dest_pt).getClass(), start_pt, dest_pt);
+      System.out.println(path.get(1).pt.getX() + " " + path.get(1).pt.getY());
+      return path.get(1).pt;
    }
    /*
    public Point nextPosition(WorldModel world, Point dest_pt){

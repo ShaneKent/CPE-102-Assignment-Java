@@ -3,6 +3,7 @@ public class Node{
    public boolean marked = false;
    public int f;
    public int g;
+   public Node came_from = null;
    
    public Node(Point pt){
       this.pt = new Point(pt.getX(), pt.getY());

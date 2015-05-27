@@ -27,7 +27,7 @@ public class Mover extends AnimatedActor
       return java.lang.Math.abs(n1.pt.getX() - n2.pt.getX()) + java.lang.Math.abs(n1.pt.getY() - n2.pt.getY());
    }
 
-   public Point AStar(WorldModel world, Class cl, Point start_pt, Point end_pt){
+   public List<Node> AStar(WorldModel world, Class cl, Point start_pt, Point end_pt){
       NodeGrid closedset = new NodeGrid(world, world.getNumCols(), world.getNumRows());
       OpenSet openset = new OpenSet();
       LinkedList<Node> came_from = new LinkedList<Node>();
@@ -45,9 +45,11 @@ public class Mover extends AnimatedActor
       closedset.setNode(start_node.pt, start_node);
       
       while (openset.size() != 0){
+         
          Node current = openset.head().getNode();
                   
-         if (current.pt.getX() == end_node.pt.getX() && current.pt.getY() == end_node.pt.getY()){
+         if (current.equals(end_node)){
+            System.out.println("Return");
             return reconstruct(came_from, end_node);
          }
 
@@ -56,11 +58,14 @@ public class Mover extends AnimatedActor
          current.marked = true;
                   
          for (Node neighbor : closedset.getNeighbors(cl, current)){
-            if (neighbor.marked){
+            if (closedset.getNode(neighbor.pt).marked){
                continue;
             }
             int tentativeG = g_score.get(current) + 1;
+            System.out.println(neighbor.pt.getX() + " " + neighbor.pt.getY());
+            
             if (!openset.hasNode(neighbor) || tentativeG < g_score.get(neighbor)){
+               neighbor.came_from = current;
                came_from.add(0, neighbor);
                g_score.put(neighbor, tentativeG);
                f_score.put(neighbor, tentativeG + h_cost(neighbor, end_node));
@@ -70,20 +75,21 @@ public class Mover extends AnimatedActor
             }
          }
       }
-      return start_node.pt;
+      return new ArrayList<Node>();
    }
    
-   public Point reconstruct(LinkedList<Node> came_from, Node current){
+   public List<Node> reconstruct(LinkedList<Node> came_from, Node current){
       List<Node> total = new ArrayList<Node>();
-      //System.out.println(came_from.size());
-      //System.out.println(came_from.get(0).pt.getX() + " " + came_from.get(0).pt.getY());
       //total.add(current);
       
-      //while (came_from.contains(current)){
-      //   total.add(came_from.pollFirst());
-      //}
-      //return came_from.get(0).pt;
-      
-      return came_from.getLast().pt;
+      while (came_from.contains(current)){
+         Node pulled = came_from.pollLast().came_from;
+         if (!total.contains(pulled)){
+            total.add(pulled);
+            System.out.println(pulled.pt.getX() + " " + pulled.pt.getY());
+         }
+      }
+      //System.out.println(total.size());
+      return total;
    }
 }
