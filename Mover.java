@@ -47,7 +47,7 @@ public class Mover extends AnimatedActor
          Node current = openset.head().getNode();
          
          if (current.equals(end_node)){
-            System.out.println("Return");
+            //System.out.println("Return");
             return reconstruct(came_from, end_node);
          }
 
@@ -85,7 +85,7 @@ public class Mover extends AnimatedActor
          Node pulled = came_from.pollLast().came_from;
          if (!total.contains(pulled)){
             total.add(pulled);
-            System.out.println(pulled.pt.getX() + " " + pulled.pt.getY());
+            //System.out.println(pulled.pt.getX() + " " + pulled.pt.getY());
          }
       }
 
