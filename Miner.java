@@ -28,7 +28,11 @@ public abstract class Miner extends Mover
       return this.resource_limit;
    }
 
-     
+   public Point nextPosition(WorldModel world, Point dest_pt){
+      Point start_pt = this.getPosition();
+      return AStar(world, world.getTileOccupant(dest_pt).getClass(), start_pt, dest_pt);
+   }
+   /*
    public Point nextPosition(WorldModel world, Point dest_pt){
       Point e_pt = this.getPosition();
       int horiz = Point.sign(dest_pt.getX() - e_pt.getX());
@@ -45,7 +49,7 @@ public abstract class Miner extends Mover
 
       return new_pt;
    }
-   
+   */
    protected abstract LongConsumer createMinerAction(WorldModel world, LinkedHashMap<String, List<PImage>> i_store);
 
 }
