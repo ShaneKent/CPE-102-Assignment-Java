@@ -3,6 +3,7 @@ public class Node{
    public boolean marked = false;
    public int f = 0;
    public int g = 0;
+   public int h = 0;
    public Node came_from = null;
    
    public Node(Point pt){
@@ -20,6 +21,6 @@ public class Node{
          return false;
       }
       
-      return (this.pt.getX() == ((Node)node).pt.getX()) && (this.pt.getY() == ((Node)node).pt.getY()) && (this.marked == ((Node)node).marked) && (this.f == ((Node)node).f) && (this.g == ((Node)node).g);
+      return (this.pt.getX() == ((Node)node).pt.getX()) && (this.pt.getY() == ((Node)node).pt.getY()) && (this.marked == ((Node)node).marked);// && (this.f == ((Node)node).f) && (this.g == ((Node)node).g);
    }
 }

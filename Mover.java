@@ -8,6 +8,8 @@ import java.util.Collections;
 
 public class Mover extends AnimatedActor
 {
+   public boolean touched = false;
+   
    private int rate;
    private int resource_limit;
    private int resource_count;
@@ -36,7 +38,8 @@ public class Mover extends AnimatedActor
       Node end_node = new Node(end_pt);
       
       start_node.g = 0;
-      start_node.f = start_node.g + h_cost(start_node, end_node);
+      start_node.h = h_cost(start_node, end_node);
+      start_node.f = start_node.g + start_node.h;
       
       openset.insert(start_node, start_node.f);
       closedset.setNode(start_node.pt, start_node);
@@ -47,7 +50,6 @@ public class Mover extends AnimatedActor
          Node current = openset.head().getNode();
          
          if (current.equals(end_node)){
-            //System.out.println("Return");
             return reconstruct(came_from, end_node);
          }
 
@@ -67,7 +69,8 @@ public class Mover extends AnimatedActor
                neighbor.came_from = current;
                came_from.add(0, neighbor);
                neighbor.g = current.g + 1;
-               neighbor.f = neighbor.g + h_cost(neighbor, end_node);
+               neighbor.h = h_cost(neighbor, end_node);
+               neighbor.f = neighbor.g + neighbor.h;
                               
                if (!openset.hasNode(neighbor)){
                   openset.insert(neighbor, neighbor.f);
@@ -81,12 +84,11 @@ public class Mover extends AnimatedActor
    public List<Node> reconstruct(LinkedList<Node> came_from, Node current){
       List<Node> total = new ArrayList<Node>();
       
-      while (came_from.contains(current)){
-         Node pulled = came_from.pollLast().came_from;
-         if (!total.contains(pulled)){
-            total.add(pulled);
-            //System.out.println(pulled.pt.getX() + " " + pulled.pt.getY());
-         }
+      total.add(0, current);
+      
+      while (current.came_from != null){
+         current = current.came_from;
+         total.add(0, current);
       }
 
       return total;

@@ -22,6 +22,9 @@ public class WorldView {
 
    }
 
+   public Rectangle getViewport(){
+      return viewport;
+   }
 
    public void drawBackground() {
       for (int y = 0; y < viewport.getHeight(); y++){
