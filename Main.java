@@ -57,7 +57,6 @@ public class Main extends PApplet {
       loadWorld(world, i_store, WORLD_FILE);
 
       view.updateView();
-      //Controller.activityLoop(view, world);
    
       next_time = System.currentTimeMillis();
    }

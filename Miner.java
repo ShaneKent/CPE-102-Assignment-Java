@@ -38,24 +38,7 @@ public abstract class Miner extends Mover
 	      return start_pt;
 	   }
    }
-   /*
-   public Point nextPosition(WorldModel world, Point dest_pt){
-      Point e_pt = this.getPosition();
-      int horiz = Point.sign(dest_pt.getX() - e_pt.getX());
-      Point new_pt = new Point(e_pt.getX() + horiz, e_pt.getY());
 
-      if (horiz == 0 || world.isOccupied(new_pt)){
-         int vert = Point.sign(dest_pt.getY() - e_pt.getY());
-         new_pt = new Point(e_pt.getX(), e_pt.getY() + vert);
-
-         if (vert == 0 || world.isOccupied(new_pt)){
-            new_pt = new Point(e_pt.getX(), e_pt.getY());
-         }
-      }
-
-      return new_pt;
-   }
-   */
    protected abstract LongConsumer createMinerAction(WorldModel world, LinkedHashMap<String, List<PImage>> i_store);
 
 }

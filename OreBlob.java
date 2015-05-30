@@ -47,24 +47,7 @@ public class OreBlob extends Mover
       else 
 	      return start_pt;
    }
-   /*
-   public Point blobNextPosition(WorldModel world, Point dest_pt){
-      Point e_pt = this.getPosition();
-      int horiz = Point.sign(dest_pt.getX() - e_pt.getX());
-      Point new_pt = new Point(e_pt.getX() + horiz, e_pt.getY());
-
-      if (horiz == 0 || (world.isOccupied(new_pt) && !(world.getTileOccupant(new_pt) instanceof Ore))){
-         int vert = Point.sign(dest_pt.getY() - e_pt.getY());
-         new_pt = new Point(e_pt.getX(), e_pt.getY() + vert);
-
-         if (vert == 0 || (world.isOccupied(new_pt) && !(world.getTileOccupant(new_pt) instanceof Ore))){
-            new_pt = new Point(e_pt.getX(), e_pt.getY());
-         }
-      }
-
-      return new_pt;
-   }
-   */
+   
    public LongConsumer createOreBlobAction(WorldModel world, LinkedHashMap<String, List<PImage>> i_store){
       LongConsumer[] action = { null };
       action[0] = (long current_ticks) -> {
