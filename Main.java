@@ -63,17 +63,6 @@ public class Main extends PApplet {
    }
 
    public void draw(){
-      for (Entity e : world.getEntities()){
-         Point mouse = WorldView.viewportToWorld(view.getViewport(), new Point(mouseX / 32, mouseY / 32));
-         Point ent_pt = ((GridItem)e).getPosition();
-         
-         if (mouse.equals(ent_pt) && e instanceof Mover){
-            ((Mover)e).touched = true;
-            //System.out.println("Touching");
-         }else if (!mouse.equals(ent_pt) && e instanceof Mover){
-            ((Mover)e).touched = false;
-         }
-      }
       long time = System.currentTimeMillis();
       if (time >= next_time){
          world.updateOnTime(time);
@@ -81,6 +70,40 @@ public class Main extends PApplet {
       }
       background(color(255, 255, 255));
       view.updateView();
+      drawEntityPath();
+   }
+   
+   public void drawEntityPath(){
+      view.drawBackground();
+      for (Entity e : world.getEntities()){
+      
+         Point mouse = WorldView.viewportToWorld(view.getViewport(), new Point(mouseX / 32, mouseY / 32));
+         Point ent_pt = ((GridItem)e).getPosition();
+         
+         if (mouse.equals(ent_pt) && e instanceof Mover){
+            NodeGrid checked = ((Mover)e).getChecked();
+            Node startPath = ((Mover)e).getStartPath();
+            if (checked != null){
+               for (int x = 0; x < checked.getWidth(); x++){
+                  for (int y = 0; y < checked.getHeight(); y++){
+                     if (checked.getNode(new Point(x,y)).f != 0){
+                        Point change = WorldView.worldToViewport(view.getViewport(), new Point(x, y));
+                        image(ImageStore.getImages(i_store, "black").get(0), change.getX() * 32 + 4, change.getY() * 32 + 4);
+                     }
+                  }
+               }
+            }
+            if (startPath != null){
+               while (startPath.came_from != null){
+                  startPath = startPath.came_from;
+                  Point change = WorldView.worldToViewport(view.getViewport(), new Point(startPath.pt.getX(), startPath.pt.getY()));
+                  image(ImageStore.getImages(i_store, "red").get(0), change.getX() * 32 + 8, change.getY() * 32 + 8);
+               }
+            }
+         }
+         
+      }
+      view.drawEntities();
    }
    
    public void keyPressed(KeyEvent e){

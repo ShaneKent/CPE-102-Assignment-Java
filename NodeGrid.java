@@ -21,6 +21,13 @@ public class NodeGrid{
       }
    }
    
+   public int getWidth(){
+      return this.width;
+   }
+   public int getHeight(){
+      return this.height;
+   }
+   
    public void setNode(Point p, Node node){
       this.nodes[p.getX()][p.getY()] = node;
    }

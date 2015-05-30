@@ -7,14 +7,15 @@ import java.util.HashMap;
 import java.util.Collections;
 
 public class Mover extends AnimatedActor
-{
-   public boolean touched = false;
-   
+{   
    private int rate;
    private int resource_limit;
    private int resource_count;
+   
+   private NodeGrid closedset;
+   private Node startPath;
 
-    public Mover(String name, List<PImage> imgs, Point position, int rate,
+   public Mover(String name, List<PImage> imgs, Point position, int rate,
                   int animation_rate){
       super(name, imgs, position, animation_rate);
 
@@ -25,15 +26,22 @@ public class Mover extends AnimatedActor
       return this.rate;
    }
    
+   public NodeGrid getChecked(){
+      return closedset;
+   }
+   
+   public Node getStartPath(){
+      return startPath;
+   }
+   
    private int h_cost(Node n1, Node n2){
       return java.lang.Math.abs(n1.pt.getX() - n2.pt.getX()) + java.lang.Math.abs(n1.pt.getY() - n2.pt.getY());
    }
 
    public List<Node> AStar(WorldModel world, Class cl, Point start_pt, Point end_pt){
       
-      NodeGrid closedset = new NodeGrid(world, world.getNumCols(), world.getNumRows());
+      closedset = new NodeGrid(world, world.getNumCols(), world.getNumRows());
       OpenSet openset = new OpenSet();
-      LinkedList<Node> came_from = new LinkedList<Node>();
             
       Node start_node = new Node(start_pt);
       Node end_node = new Node(end_pt);
@@ -51,7 +59,8 @@ public class Mover extends AnimatedActor
          Node current = openset.head().getNode();
          
          if (current.equals(end_node)){
-            return reconstruct(came_from, end_node);
+            startPath = end_node;
+            return reconstruct(startPath);
          }
 
          openset.remove(current);
@@ -68,7 +77,6 @@ public class Mover extends AnimatedActor
             if (!openset.hasNode(neighbor) || tentativeG < neighbor.g){
                
                neighbor.came_from = current;
-               came_from.add(0, neighbor);
                neighbor.g = current.g + 1;
                neighbor.h = h_cost(neighbor, end_node);
                neighbor.f = neighbor.g + neighbor.h;
@@ -82,7 +90,7 @@ public class Mover extends AnimatedActor
       return new ArrayList<Node>();
    }
    
-   public List<Node> reconstruct(LinkedList<Node> came_from, Node current){
+   public List<Node> reconstruct(Node current){
       List<Node> total = new ArrayList<Node>();
       
       total.add(0, current);
