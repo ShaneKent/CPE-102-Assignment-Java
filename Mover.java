@@ -30,6 +30,7 @@ public class Mover extends AnimatedActor
    }
 
    public List<Node> AStar(WorldModel world, Class cl, Point start_pt, Point end_pt){
+      
       NodeGrid closedset = new NodeGrid(world, world.getNumCols(), world.getNumRows());
       OpenSet openset = new OpenSet();
       LinkedList<Node> came_from = new LinkedList<Node>();
@@ -57,7 +58,7 @@ public class Mover extends AnimatedActor
          current.marked = true;
          closedset.setNode(current.pt, current);
                   
-         for (Node neighbor : closedset.getNeighbors(cl, current)){
+         for (Node neighbor : closedset.getNeighbors(this.getClass(), cl, current)){
             if (closedset.getNode(neighbor.pt).marked){
                continue;
             }
