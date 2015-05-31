@@ -107,6 +107,12 @@ public class Actions
         return vein;
     }
     
+    public static Monster createMonster(WorldModel world, String name, Point pt, int rate, long ticks, LinkedHashMap<String, List<PImage>> i_store)
+    {
+        Monster monster = new Monster(name, ImageStore.getImages(i_store, "monster"), pt, rate, 10);
+        monster.scheduleMonster(world, ticks, i_store);
+        return monster;
+    }
     
     public static void scheduleAction(WorldModel world, Occupant entity, LongConsumer action, long time)
     {

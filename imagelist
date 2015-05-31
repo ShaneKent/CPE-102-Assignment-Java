@@ -30,3 +30,6 @@ vein images/vein.bmp
 background_default images/none.bmp
 black images/black.bmp 255 255 255 0
 red images/red.bmp 255 255 255 0
+monster images/monster1.bmp 255 255 255 0
+monster images/monster2.bmp 255 255 255 0
+monster images/monster3.bmp 255 255 255 0
