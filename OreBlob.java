@@ -38,6 +38,33 @@ public class OreBlob extends Mover
          return world.moveEntity(this, new_p);
       }
    }
+   
+   public Point[] blobToVein(WorldModel world, SuperVein v){
+      Point e_pt = getPosition();
+      Point [] pt = new Point[1];
+      if (v == null){
+         pt[0] = e_pt;
+         truth = false;
+         return pt;
+      }
+
+      Point v_pt = v.getPosition();
+      if (e_pt.adjacent(v_pt)){
+         Actions.removeEntity(world, v);
+         pt[0] = v_pt;
+         truth = true;
+         return pt;
+      }
+      else{
+         Point new_p = blobNextPosition(world, v_pt);
+         Occupant old_e = (Occupant) world.getTileOccupant(new_p);
+         if (old_e instanceof Ore){
+            Actions.removeEntity(world, old_e);
+         }
+         truth = false;
+         return world.moveEntity(this, new_p);
+      }
+   }
 
    public Point blobNextPosition(WorldModel world, Point dest_pt){
       Point start_pt = this.getPosition();
@@ -55,7 +82,27 @@ public class OreBlob extends Mover
          
          Point entity_pt = getPosition();
          Vein vein = (Vein) world.findNearest(entity_pt, Vein.class);
-         Point[] tiles = blobToVein(world, vein);
+         SuperVein svein = (SuperVein) world.findNearest(entity_pt, SuperVein.class);
+         
+         
+         Point[] tiles;
+         
+         if (vein != null && svein != null){
+            if (entity_pt.distanceSq(vein.getPosition()) < entity_pt.distanceSq(svein.getPosition())){
+               tiles = blobToVein(world, vein);
+            }
+            else{
+               tiles = blobToVein(world, svein);
+            }
+         }
+         else if (vein != null && svein == null){
+            tiles = blobToVein(world, vein);
+         }
+         else{
+            tiles = blobToVein(world, svein);
+         }
+         
+         
          long next_time = current_ticks + getRate();
          
          if (truth){//tiles.length == 2){

@@ -16,6 +16,14 @@ public class Actions
     public static final int ORE_CORRUPT_MIN = 20000;
     public static final int ORE_CORRUPT_MAX = 30000;
     
+    public static final int MONSTER_ANIMATION_RATE = 125;
+    
+    public static final int BOMB_STEPS = 100;
+    public static final int BOMB_DURATION = 5000;
+    public static final int BOMB_ANIMATION_RATE = 250;
+    
+    public static final int SPAWNER_ANIMATION_RATE = 10;
+    
     public static final int QUAKE_STEPS = 10;
     public static final int QUAKE_DURATION = 1100;
     public static final int QUAKE_ANIMATION_RATE = 100;
@@ -23,6 +31,10 @@ public class Actions
     public static final int VEIN_SPAWN_DELAY = 500;
     public static final int VEIN_RATE_MIN = 8000;
     public static final int VEIN_RATE_MAX = 17000;
+   
+    public static final int SUPER_VEIN_SPAWN_DELAY = 300;
+    public static final int SUPER_VEIN_RATE_MIN = 1500;
+    public static final int SUPER_VEIN_RATE_MAX = 3000;   
    
     public static LongConsumer createAnimationAction(WorldModel world, AnimatedActor entity,
                                         int repeat_count)
@@ -98,6 +110,12 @@ public class Actions
         return quake;
     }
     
+    public static MonsterSpawner createMonsterSpawner(WorldModel world, String name, Point pt, long ticks, LinkedHashMap<String, List<PImage>> i_store)
+    {
+        MonsterSpawner ms = new MonsterSpawner("spawner", ImageStore.getImages(i_store, "spawner"), pt, SPAWNER_ANIMATION_RATE);
+        ms.scheduleSpawner(world, ticks, i_store);
+        return ms;
+    }
     
     public static Vein createVein(WorldModel world, String name, Point pt, long ticks, LinkedHashMap<String, List<PImage>> i_store)
     {
@@ -107,11 +125,27 @@ public class Actions
         return vein;
     }
     
+    public static SuperVein createSuperVein(WorldModel world, String name, Point pt, long ticks, LinkedHashMap<String, List<PImage>> i_store, int reach)
+    {
+        Random r = new Random();
+        int randNum = r.nextInt((SUPER_VEIN_RATE_MAX - SUPER_VEIN_RATE_MIN) + 1) + SUPER_VEIN_RATE_MIN;
+        SuperVein sv = new SuperVein("supervein" + name, ImageStore.getImages(i_store, "supervein"), pt, randNum, reach);
+        sv.scheduleSuperVein(world, ticks, i_store);
+        return sv;
+    }
+    
     public static Monster createMonster(WorldModel world, String name, Point pt, int rate, long ticks, LinkedHashMap<String, List<PImage>> i_store)
     {
-        Monster monster = new Monster(name, ImageStore.getImages(i_store, "monster"), pt, rate, 10);
+        Monster monster = new Monster(name, ImageStore.getImages(i_store, "monster"), pt, rate, MONSTER_ANIMATION_RATE);
         monster.scheduleMonster(world, ticks, i_store);
         return monster;
+    }
+    
+    public static MonsterBomb createBomb(WorldModel world, String name, Point pt, long ticks, LinkedHashMap<String, List<PImage>> i_store)
+    {
+        MonsterBomb bomb = new MonsterBomb(name, ImageStore.getImages(i_store, "bomb"), pt, BOMB_ANIMATION_RATE, ImageStore.getImages(i_store, "corrupt"));
+        bomb.scheduleBomb(world, ticks, i_store);
+        return bomb;
     }
     
     public static void scheduleAction(WorldModel world, Occupant entity, LongConsumer action, long time)

@@ -53,7 +53,7 @@ public class WorldModel{
       List<Entity> ent = new ArrayList<Entity>();
 
       for (Entity e : this.entities){
-         if (e instanceof GridItem && e.getClass() == cl){
+         if (e instanceof GridItem && e.getClass() == cl && (!this.getBackground(((GridItem)e).getPosition()).getTouching() || e instanceof OreBlob)){
             distance.add(p.distanceSq( ((GridItem) e).getPosition() ));
             ent.add(e);
          }

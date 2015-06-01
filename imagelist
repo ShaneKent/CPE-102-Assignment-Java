@@ -28,8 +28,21 @@ quake images/quake6.bmp 255 255 255 0
 rocks images/rock.bmp
 vein images/vein.bmp
 background_default images/none.bmp
+
 black images/black.bmp 255 255 255 0
 red images/red.bmp 255 255 255 0
+
+corrupt images/corruptgrass.bmp
+
 monster images/monster1.bmp 255 255 255 0
 monster images/monster2.bmp 255 255 255 0
 monster images/monster3.bmp 255 255 255 0
+bomb images/bomb1.bmp 255 255 255 0
+bomb images/bomb2.bmp 255 255 255 0
+bomb images/bomb3.bmp 255 255 255 0
+bomb images/bomb2.bmp 255 255 255 0
+bomb images/bomb1.bmp 255 255 255 0
+spawner images/spawner1.bmp 255 255 255 0
+spawner images/spawner2.bmp 255 255 255 0
+
+supervein images/supervein.bmp 255 255 255 0

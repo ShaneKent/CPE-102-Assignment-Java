@@ -12,6 +12,19 @@ public class Monster extends Mover
    }
    
    public Point[] monsterToOreBlob(WorldModel world, OreBlob ob){
+      
+      int ent_x = this.getPosition().getX();
+      int ent_y = this.getPosition().getY();
+      
+      for (int x = -1; x <= 1; x++){
+         for (int y = -1; y <= 1; y++){
+            Point pt = new Point(ent_x + x, ent_y + y);
+            if (world.withinBounds(pt)){
+               world.getBackground(pt).setTouching(true);
+            }
+         }
+      } 
+      
       Point e_pt = getPosition();
       Point [] pt = new Point[1];
       if (ob == null){
@@ -41,10 +54,25 @@ public class Monster extends Mover
    public Point monsterNextPosition(WorldModel world, Point dest_pt){
       Point start_pt = this.getPosition();
       List<Node> path = AStar(world, world.getTileOccupant(dest_pt).getClass(), start_pt, dest_pt);
-      if (!path.isEmpty())
+      
+      int ent_x = this.getPosition().getX();
+      int ent_y = this.getPosition().getY();
+      
+      if (!path.isEmpty()){
+         for (int x = -1; x <= 1; x++){
+            for (int y = -1; y <= 1; y++){
+               Point pt = new Point(ent_x + x, ent_y + y);
+               if (world.withinBounds(pt)){
+                  world.getBackground(pt).setTouching(false);
+               }
+            }
+         }
+         
 	      return path.get(1).pt;
-      else 
+	   }
+      else{ 
 	      return start_pt;
+      }
    }
    
    public LongConsumer createMonsterAction(WorldModel world, LinkedHashMap<String, List<PImage>> i_store){
@@ -57,7 +85,7 @@ public class Monster extends Mover
          Point[] tiles = monsterToOreBlob(world, ob);
          long next_time = current_ticks + getRate();
          
-         if (truth){//tiles.length == 2){
+         if (truth){
             Quake quake = Actions.createQuake(world, tiles[0], current_ticks, i_store);
             world.addEntity(quake);
             next_time = current_ticks + getRate() * 2;
