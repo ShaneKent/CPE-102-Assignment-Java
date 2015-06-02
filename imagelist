@@ -46,3 +46,10 @@ spawner images/spawner1.bmp 255 255 255 0
 spawner images/spawner2.bmp 255 255 255 0
 
 supervein images/supervein.bmp 255 255 255 0
+
+ghost images/ghost1.bmp 255 255 255 0
+ghost images/ghost2.bmp 255 255 255 0
+ghost images/ghost3.bmp 255 255 255 0
+jar images/jar1.bmp 255 255 255 0
+jar images/jar2.bmp 255 255 255 0
+jar images/jar3.bmp 255 255 255 0

@@ -1,6 +1,8 @@
 import processing.core.*;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.function.LongConsumer;
 
 public class WorldModel{
@@ -53,7 +55,7 @@ public class WorldModel{
       List<Entity> ent = new ArrayList<Entity>();
 
       for (Entity e : this.entities){
-         if (e instanceof GridItem && e.getClass() == cl && (!this.getBackground(((GridItem)e).getPosition()).getTouching() || e instanceof OreBlob)){
+         if (e instanceof GridItem && e.getClass() == cl && (!this.getBackground(((GridItem)e).getPosition()).getTouching() || e instanceof OreBlob || e instanceof Monster)){
             distance.add(p.distanceSq( ((GridItem) e).getPosition() ));
             ent.add(e);
          }
@@ -172,5 +174,23 @@ public class WorldModel{
       return null;
    }
 
-   
+   public Point findRandomAround(Point pt, int distance){
+	         List<Point> pts = new ArrayList<Point>();
+	         for (int dy = (-1 * distance); dy <= distance; dy++){
+	            for (int dx = (-1 * distance); dx <= distance; dx++){
+	               Point new_p = new Point(pt.getX() + dx, pt.getY() + dy);
+	    
+	               if (withinBounds(new_p) && !isOccupied(new_p)){
+	                  pts.add(new_p);
+	               }
+	            }
+	         }
+	         if (pts.size() == 0){
+	            return null;
+	         }else{
+	            Random r = new Random();
+	            int index = r.nextInt(pts.size());
+	           return pts.get(index);
+	         }
+	      }
 }
