@@ -3,13 +3,20 @@ MONSTER EVENT
 1) How to trigger event:
    Click on any Vein. Event will not occur if you click on any other entity.
 
-2) What should happen, 3) What the affected entities should do, 4) What the new entity is/should behave:
+2) What should happen:
    The vein that you clicked on will then turn into a new Entity called a MonsterBomb.
-   This MonsterBomb, after a short amount of time and an animation to show progress, will "explode" and create a patch of "bad" grass that is 5x5 blocks in size.
-   Where ever that bad grass is a Monster entity can spawn. The Monster entities are drawn to OreBlobs, and will essentially eat the OreBlobs where ever they are.
-   The Miners, however, are repulsed by the Monster entities and cannot move within a 3x3 box around the Monster entity. (This can be seen by mousing over the Miners when they are moving if a Monster is in there way).
-   If a Vein is in the patch of bad grass that spawns then it will be replaced by a SuperVein which has a different appearance from a normal Vein and will spawn Ores at the same distance as a normal Vein but at a much quicker speed.
+   This MonsterBomb, after a short amount of time and an animation to show progress, will "explode" into a MonsterSpawner and create a patch of "bad" grass that is 5x5 blocks in size.
+   Where ever that bad grass is a Monster entity can spawn.
+   
+3) What the affected entities should do:   
+   Miners are affected by this action in two ways; if a monster is within range of the MonsterBomb when it explodes they will be instantly vaporized.
+   The Miners, if they survive the MonsterBomb explosion, are repulsed by the Monster entities and cannot move within a 3x3 box around the Monster entity. 
+   (This can be seen by mousing over the Miners when they are moving if a Monster is in there way).
    OreBlobs will try to destroy the closest Vein or SuperVein no matter which type it is.
+   
+4) What the new entity is/should behave:
+   The Monster entities are drawn to OreBlobs, and will essentially eat the OreBlobs where ever they are.
+   If a Vein is in the patch of bad grass that spawns then it will be replaced by a SuperVein which has a different appearance from a normal Vein and will spawn Ores at the same distance as a normal Vein but at a much quicker speed.
 
    
 GHOST EVENT
