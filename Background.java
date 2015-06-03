@@ -15,5 +15,4 @@ public class Background extends Entity{
    public boolean getTouching(){
       return monsterTouching;
    }
-
 }

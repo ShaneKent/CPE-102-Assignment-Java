@@ -62,8 +62,8 @@ public class MinerFull extends Miner{
          return action[0];
      }
 
-   public Miner tryTransformMinerFull(WorldModel world){
+  public Miner tryTransformMinerFull(WorldModel world){
          Miner m = new MinerNotFull(this.getName(), this.getImages(), this.getPosition(), this.getRate(), this.getResourceLimit(), this.getAnimationRate());
          return m;
-   }
+   } 
 }
