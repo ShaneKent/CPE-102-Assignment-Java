@@ -1,7 +1,9 @@
 import java.io.*;
 import java.util.Scanner;
+
 import java.util.List;
 import java.util.ArrayList;
+
 import java.util.LinkedHashMap;
 
 import processing.core.*;
@@ -111,18 +113,6 @@ public class Main extends PApplet {
             Actions.removeEntity(world, (Occupant) world.getTileOccupant(mouse));
             MonsterBomb bomb = Actions.createBomb(world, "bomb - " + System.currentTimeMillis(), mouse, System.currentTimeMillis(), i_store);
             world.addEntity(bomb);
-         }
-         else if (world.getTileOccupant(mouse).getClass() == Jar.class)
-         {
-        	 Actions.removeEntity(world, (Occupant) world.getTileOccupant(mouse));
-             Ghost ghost = Actions.createGhost(world, "monster - " + getName() + " - " + System.currentTimeMillis(), mouse, 300, System.currentTimeMillis(), i_store);
-             world.addEntity(ghost); 
-         }
-         else if (world.getTileOccupant(mouse).getClass() == SuperVein.class)
-         {
-        	 Actions.removeEntity(world, (Occupant) world.getTileOccupant(mouse));
-             Jar jar = Actions.createJar(world, "jar - " + getName() + " - " + System.currentTimeMillis(), mouse, System.currentTimeMillis(), i_store);
-             world.addEntity(jar); 
          }
       }
    }

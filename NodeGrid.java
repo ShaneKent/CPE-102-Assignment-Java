@@ -62,42 +62,23 @@ public class NodeGrid{
             returned_nodes.add(getNode(left));
          }
       }
-      else if (calling == Ghost.class) {
-    	  if (current.pt.getY() + 1 < this.world.getNumRows() && (!this.world.isOccupied(down) || this.world.getTileOccupant(down).getClass() == cl)){
-              returned_nodes.add(getNode(down));
-           }
-
-           if (current.pt.getX() + 1 < this.world.getNumCols() && (!this.world.isOccupied(right) || this.world.getTileOccupant(right).getClass() == cl)){
-              returned_nodes.add(getNode(right));
-           }
-
-      
-           if (current.pt.getY() - 1 >= 0  && (!this.world.isOccupied(up) || this.world.getTileOccupant(up).getClass() == cl)){
-              returned_nodes.add(getNode(up));
-           }
-
-           if (current.pt.getX() - 1 >= 0  && (!this.world.isOccupied(left) || this.world.getTileOccupant(left).getClass() == cl)){
-              returned_nodes.add(getNode(left));
-           }
-      }
       else if (calling != Monster.class){
-          if (current.pt.getY() + 1 < this.world.getNumRows() && !this.world.getBackground(down).getTouching() && (!this.world.isOccupied(down) || this.world.getTileOccupant(down).getClass() == cl)){
-              returned_nodes.add(getNode(down));
-           }
+         if (current.pt.getY() + 1 < this.world.getNumRows() && !this.world.getBackground(down).getTouching() && (!this.world.isOccupied(down) || this.world.getTileOccupant(down).getClass() == cl)){
+            returned_nodes.add(getNode(down));
+         }
 
-           if (current.pt.getX() + 1 < this.world.getNumCols() && !this.world.getBackground(right).getTouching() && (!this.world.isOccupied(right) || this.world.getTileOccupant(right).getClass() == cl)){
-              returned_nodes.add(getNode(right));
-           }
+         if (current.pt.getX() + 1 < this.world.getNumCols() && !this.world.getBackground(right).getTouching() && (!this.world.isOccupied(right) || this.world.getTileOccupant(right).getClass() == cl)){
+            returned_nodes.add(getNode(right));
+         }
 
-      
-           if (current.pt.getY() - 1 >= 0 && !this.world.getBackground(up).getTouching() && (!this.world.isOccupied(up) || this.world.getTileOccupant(up).getClass() == cl)){
-              returned_nodes.add(getNode(up));
-           }
+    
+         if (current.pt.getY() - 1 >= 0 && !this.world.getBackground(up).getTouching() && (!this.world.isOccupied(up) || this.world.getTileOccupant(up).getClass() == cl)){
+            returned_nodes.add(getNode(up));
+         }
 
-           if (current.pt.getX() - 1 >= 0 && !this.world.getBackground(left).getTouching() && (!this.world.isOccupied(left) || this.world.getTileOccupant(left).getClass() == cl)){
-              returned_nodes.add(getNode(left));
-           }
-    	  
+         if (current.pt.getX() - 1 >= 0 && !this.world.getBackground(left).getTouching() && (!this.world.isOccupied(left) || this.world.getTileOccupant(left).getClass() == cl)){
+            returned_nodes.add(getNode(left));
+         }
       }
       else {
          if (current.pt.getY() + 1 < this.world.getNumRows() && (!this.world.isOccupied(down) || this.world.getTileOccupant(down).getClass() == cl)){

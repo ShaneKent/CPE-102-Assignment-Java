@@ -17,14 +17,12 @@ public class Actions
     public static final int ORE_CORRUPT_MAX = 30000;
     
     public static final int MONSTER_ANIMATION_RATE = 125;
-    public static final int GHOST_ANIMATION_RATE = 250;
     
     public static final int BOMB_STEPS = 100;
     public static final int BOMB_DURATION = 5000;
     public static final int BOMB_ANIMATION_RATE = 250;
     
     public static final int SPAWNER_ANIMATION_RATE = 10;
-    public static final int JAR_ANIMATION_RATE = 100;
     
     public static final int QUAKE_STEPS = 10;
     public static final int QUAKE_DURATION = 1100;
@@ -119,13 +117,6 @@ public class Actions
         return ms;
     }
     
-    public static Jar createJar(WorldModel world, String name, Point pt, long ticks, LinkedHashMap<String, List<PImage>> i_store)
-    {
-        Jar jar = new Jar("jar", ImageStore.getImages(i_store, "jar"), pt, JAR_ANIMATION_RATE);
-        jar.scheduleJar(world, ticks, i_store);
-        return jar;
-    }
-    
     public static Vein createVein(WorldModel world, String name, Point pt, long ticks, LinkedHashMap<String, List<PImage>> i_store)
     {
         Random r = new Random();
@@ -148,13 +139,6 @@ public class Actions
         Monster monster = new Monster(name, ImageStore.getImages(i_store, "monster"), pt, rate, MONSTER_ANIMATION_RATE);
         monster.scheduleMonster(world, ticks, i_store);
         return monster;
-    }
-
-    public static Ghost createGhost(WorldModel world, String name, Point pt, int rate, long ticks, LinkedHashMap<String, List<PImage>> i_store)
-    {
-        Ghost ghost = new Ghost(name, ImageStore.getImages(i_store, "ghost"), pt, rate, GHOST_ANIMATION_RATE);
-        ghost.scheduleGhost(world, ticks, i_store);
-        return ghost;
     }
     
     public static MonsterBomb createBomb(WorldModel world, String name, Point pt, long ticks, LinkedHashMap<String, List<PImage>> i_store)

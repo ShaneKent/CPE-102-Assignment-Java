@@ -1,5 +1,4 @@
 import processing.core.*;
-
 import java.util.List;
 import java.util.LinkedHashMap;
 import java.util.function.LongConsumer;
@@ -102,5 +101,4 @@ public class Monster extends Mover
                               ticks + getRate());
       Actions.scheduleAnimation(world, this);
    }
-   
 }

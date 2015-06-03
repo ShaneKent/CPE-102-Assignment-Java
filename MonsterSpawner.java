@@ -16,7 +16,7 @@ public class MonsterSpawner extends AnimatedActor
       action[0] = (long current_ticks) -> {
          removePendingAction(action[0]);
          
-         Point open_pt = world.findRandomAround(getPosition(), 2);
+         Point open_pt = world.findOpenAround(getPosition(), 2);
          if (open_pt != null){
             Monster monster = Actions.createMonster(world, "ore - " + getName() + " - " + current_ticks, open_pt, 200, current_ticks, i_store);
             world.addEntity(monster);
