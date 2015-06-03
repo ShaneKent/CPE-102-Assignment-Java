@@ -1,6 +1,5 @@
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Random;
 import java.util.function.LongConsumer;
 
 import processing.core.PImage;
@@ -8,8 +7,6 @@ import processing.core.PImage;
 
 public class Ghost extends Mover {
 	   private boolean truth = false;
-	   public static final int ORE_CORRUPT_MIN = 20000;
-	   public static final int ORE_CORRUPT_MAX = 30000;
 	   
 	   public Ghost(String name, List<PImage> imgs, Point position, int rate, int animation_rate){
 	      super(name, imgs, position, rate, animation_rate);
@@ -27,19 +24,6 @@ public class Ghost extends Mover {
 		      Point m_pt = m.getPosition();
 		      if (e_pt.adjacent(m_pt)){
 		         Actions.removeEntity(world, m);
-		     
-		         int m_x = m_pt.getX();
-		         int m_y = m_pt.getY();
-		         
-		         for (int x = -1; x <= 1; x++){
-		             for (int y = -1; y <= 1; y++){
-		                Point mpt = new Point(m_x + x, m_y + y);
-		                if (world.withinBounds(mpt)){
-		                   world.getBackground(mpt).setTouching(false);
-		                }
-		             }
-		          } 
-		         
 		         pt[0] = m_pt;
 		         truth = true;
 		         return pt;
@@ -84,14 +68,8 @@ public class Ghost extends Mover {
 		         long next_time = current_ticks + getRate();
 		         
 		         if (truth){//tiles.length == 2){
-		        	 Random r = new Random();
-		             int randNum = r.nextInt((ORE_CORRUPT_MAX - ORE_CORRUPT_MIN) + 1) + ORE_CORRUPT_MIN;
-		        	 OreBlob blob = Actions.createBlob(world, getName() + " -- blob", tiles[0], 
-                             randNum / Actions.BLOB_RATE_SCALE, 
-                             current_ticks, i_store);
-		        	 world.addEntity(blob);
-		            //Quake quake = Actions.createQuake(world, tiles[0], current_ticks, i_store);
-		            //world.addEntity(quake);
+		            Quake quake = Actions.createQuake(world, tiles[0], current_ticks, i_store);
+		            world.addEntity(quake);
 		            next_time = current_ticks + getRate() * 2;
 		         }
 		         
