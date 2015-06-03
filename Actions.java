@@ -37,6 +37,10 @@ public class Actions
     public static final int SUPER_VEIN_SPAWN_DELAY = 300;
     public static final int SUPER_VEIN_RATE_MIN = 1500;
     public static final int SUPER_VEIN_RATE_MAX = 3000;   
+    
+    public static final int KILL_STEPS = 4;
+    public static final int KILL_DURATION = 400;
+    public static final int KILL_ANIMATION_RATE = 100;
    
     public static LongConsumer createAnimationAction(WorldModel world, AnimatedActor entity,
                                         int repeat_count)
@@ -110,6 +114,13 @@ public class Actions
                                 ImageStore.getImages(i_store, "quake"), pt, QUAKE_ANIMATION_RATE);
         quake.scheduleQuake(world, ticks);
         return quake;
+    }
+    
+    public static Kill createKill(WorldModel world, Point pt, long ticks, LinkedHashMap<String, List<PImage>> i_store)
+    {
+        Kill kill = new Kill("kill", ImageStore.getImages(i_store, "kill"), pt, KILL_ANIMATION_RATE);
+        kill.scheduleKill(world, ticks);
+        return kill;
     }
     
     public static MonsterSpawner createMonsterSpawner(WorldModel world, String name, Point pt, long ticks, LinkedHashMap<String, List<PImage>> i_store)

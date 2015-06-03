@@ -31,6 +31,12 @@ public class MonsterBomb extends AnimatedActor
                   SuperVein sv = Actions.createSuperVein(world, "supervein - " + current_ticks, pt, current_ticks, i_store, 1);
                   world.addEntity(sv);
                }
+               else if (tile != null && tile instanceof Miner){
+                  Point tile_pt = ((Occupant)tile).getPosition();
+                  Actions.removeEntity(world, (Occupant) tile);
+                  Kill kill = Actions.createKill(world, tile_pt, System.currentTimeMillis(), i_store);
+                  world.addEntity(kill);
+               }
             }
          }
          

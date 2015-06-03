@@ -114,15 +114,15 @@ public class Main extends PApplet {
          }
          else if (world.getTileOccupant(mouse).getClass() == Jar.class)
          {
-        	 Actions.removeEntity(world, (Occupant) world.getTileOccupant(mouse));
-             Ghost ghost = Actions.createGhost(world, "monster - " + getName() + " - " + System.currentTimeMillis(), mouse, 500, System.currentTimeMillis(), i_store);
-             world.addEntity(ghost); 
+        	   Actions.removeEntity(world, (Occupant) world.getTileOccupant(mouse));
+            Ghost ghost = Actions.createGhost(world, "monster - " + System.currentTimeMillis(), mouse, 500, System.currentTimeMillis(), i_store);
+            world.addEntity(ghost); 
          }
          else if (world.getTileOccupant(mouse).getClass() == SuperVein.class)
          {
-        	 Actions.removeEntity(world, (Occupant) world.getTileOccupant(mouse));
-             Jar jar = Actions.createJar(world, "jar - " + getName() + " - " + System.currentTimeMillis(), mouse, System.currentTimeMillis(), i_store);
-             world.addEntity(jar); 
+        	   Actions.removeEntity(world, (Occupant) world.getTileOccupant(mouse));
+            Jar jar = Actions.createJar(world, "jar - " + System.currentTimeMillis(), mouse, System.currentTimeMillis(), i_store);
+            world.addEntity(jar); 
          }
       }
    }

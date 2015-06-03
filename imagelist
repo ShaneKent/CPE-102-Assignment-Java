@@ -44,8 +44,11 @@ bomb images/bomb2.bmp 255 255 255 0
 bomb images/bomb1.bmp 255 255 255 0
 spawner images/spawner1.bmp 255 255 255 0
 spawner images/spawner2.bmp 255 255 255 0
-
 supervein images/supervein.bmp 255 255 255 0
+kill images/kill1.bmp 255 255 255 0
+kill images/kill2.bmp 255 255 255 0
+kill images/kill3.bmp 255 255 255 0
+kill images/kill4.bmp 255 255 255 0
 
 ghost images/ghost1.bmp 255 255 255 0
 ghost images/ghost2.bmp 255 255 255 0
